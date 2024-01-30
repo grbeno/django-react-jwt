@@ -3,7 +3,7 @@
 - :clipboard: Custom user model
 - :raising_hand: Signup
 - :unlock: Signin
-- :key: Jwt authentication
+- :key: JWT authentication
 - :arrows_clockwise: Change password
 - :white_check_mark: Reset password
 
