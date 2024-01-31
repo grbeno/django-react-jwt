@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.exceptions import TokenError
 
 
 # class SignupView(APIView):
+#     """ Signup view """
 
 
 class BlacklistTokenUpdateView(APIView):
@@ -15,14 +17,13 @@ class BlacklistTokenUpdateView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
+        refresh_token = request.data["refresh_token"]
         try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            RefreshToken(refresh_token).blacklist()
+        except TokenError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(status=status.HTTP_205_RESET_CONTENT)
 
 
 class IsSuperuser(APIView):
