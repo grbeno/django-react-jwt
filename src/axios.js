@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
         // console.log('response ' + JSON.stringify(error.response));
 
-        if (error.response.status === 401 && originalRequest.url === baseURL + '/api/token/refresh/') {
+        if (error.response.status === 401 && originalRequest.url === baseURL + 'api/token/refresh/') {
             console.log('prevent loop - error 401');
             window.location.href = '/login'; 
             return Promise.reject(error);  // Prevent infinite loops
@@ -73,7 +73,7 @@ axiosInstance.interceptors.response.use(
                     console.log('access_token_expired_@: ' + expirationTime('access_token'));
                     
                     return axiosInstance
-                    .post('/api/token/refresh/', { refresh: refreshToken })
+                    .post('api/token/refresh/', { refresh: refreshToken })
                     .then((response) => {
                         
                         localStorage.setItem('access_token', response.data.access);
@@ -94,7 +94,7 @@ axiosInstance.interceptors.response.use(
                         console.log(err);
                     })
                     .finally (() => {
-                        window.location.href = '/chat';
+                        window.location.href = '/';
                     });   
                 }
                 else {

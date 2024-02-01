@@ -146,10 +146,13 @@ STATIC_ROOT = str(BASE_DIR.joinpath('build', 'static'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'  # custom user model
 
 # CORS
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    f'https://{DOMAIN_NAME}' if DOMAIN_NAME !='' else 'http://localhost:8000',
+)
 
 if DOMAIN_NAME != '':
     CSRF_TRUSTED_ORIGINS = [f'https://{DOMAIN_NAME}', ] # railway

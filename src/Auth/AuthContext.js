@@ -66,7 +66,7 @@ export const AuthProvider = ({children}) => {
             console.log(error);
         })
         .finally(() => {
-             window.location.href = '/login';
+            window.location.href = '/login';
         });
     };
 

@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # logout
-    path('api/logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
+    path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
     path('', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...

@@ -1,14 +1,31 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import './App.css';
+import {expirationTime} from './utils';
 
 
-export default function App() {
+const App = () => {
+
+  // token
+  const token = localStorage.getItem('access_token');
+  const expirationTimeRefAccess = useRef(expirationTime('access_token'));
+  const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
+
+  // useEffect for tokens
+  useEffect(() => {
+    console.log(expirationTimeRefAccess);
+    console.log(expirationTimeRefRefresh);
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
+
   return (
-    <div className="App">
-      <h2>Hello React!</h2>
-      <hr />
-    </div>
+    <>
+    {token && (
+      <div className="App">
+        <h2>Hello React!</h2>
+        <hr />
+      </div>
+    )}
+    </>
   );
 }
 
-
+export default App;
