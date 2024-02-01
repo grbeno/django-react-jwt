@@ -41,7 +41,8 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('refresh_token', response.data.refresh);
             axiosInstance.defaults.headers['Authorization'] =
                 'JWT ' + localStorage.getItem('access_token');
-            window.location.reload();  // localhost:3000
+            //window.location.reload();  // localhost:3000
+            window.location.href = '/';
         })
         .catch((error) => {
             errorCallback("Wrong username or password! Try again.");
@@ -66,7 +67,7 @@ export const AuthProvider = ({children}) => {
             console.log(error);
         })
         .finally(() => {
-            window.location.href = '/login';
+            window.location.href = '/';
         });
     };
 

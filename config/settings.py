@@ -51,9 +51,9 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'rest_framework',
-    'corsheaders',
     'rest_framework_simplejwt',  # JWT
     'rest_framework_simplejwt.token_blacklist',  # JWT
+    'corsheaders',  # corsheaders
 
     # Local apps
     'accounts',
@@ -151,7 +151,7 @@ AUTH_USER_MODEL = 'accounts.CustomUser'  # custom user model
 # CORS
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    f'https://{DOMAIN_NAME}' if DOMAIN_NAME !='' else 'http://localhost:8000',
+    f'https://{DOMAIN_NAME}' if DOMAIN_NAME != '' else 'http://localhost:8000',
 )
 
 if DOMAIN_NAME != '':
