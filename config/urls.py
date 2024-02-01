@@ -13,7 +13,13 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     
     path('admin/', admin.site.urls),
+    
+    # App
     path("", include("app.urls")),
+
+    # User model
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
     # JWT
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -22,6 +28,6 @@ urlpatterns = [
     path('api/logout/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
-    path('', React.as_view(), name='frontend'),
+    path('', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
 
 ]
