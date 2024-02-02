@@ -28,7 +28,7 @@ const removeTokens = (error) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     delete axiosInstance.defaults.headers['Authorization'];
-    window.location.href = '/login';
+    window.location.href = '/';  // login/
     return Promise.reject(error); 
 };
 
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
 
         if (error.response.status === 401 && originalRequest.url === baseURL + 'api/token/refresh/') {
             console.log('prevent loop - error 401');
-            window.location.href = '/login'; 
+            window.location.href = '/';  // login/
             return Promise.reject(error);  // Prevent infinite loops
         }
 
@@ -94,12 +94,12 @@ axiosInstance.interceptors.response.use(
                         console.log(err);
                     })
                     .finally (() => {
-                        window.location.href = '/';
+                        window.location.href = '/';  // go to here after the token is refreshed
                     });   
                 }
                 else {
                     console.log("Access token expired.");
-                    console.log('access_token_expired_@: ' + expirationTime('access_token'));
+                    console.log('Access_token_expired_@: ' + expirationTime('access_token'));
                 }
             }
             else {
