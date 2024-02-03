@@ -21,6 +21,7 @@ const App = () => {
     {token ? (
       <div className="App">
         <h2>Hello React!</h2>
+        <p>{process.env.REACT_APP_URL}</p>
         <hr />
       </div>
     ) : (

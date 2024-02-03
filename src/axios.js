@@ -3,7 +3,7 @@ import { expirationTime } from './utils';
 
 
 // Export base url from env variable
-const baseURL = process.env.REACT_URL;
+const baseURL = process.env.REACT_APP_URL;
 
 // Get csrf token
 const getCSRFToken = () => {
@@ -28,7 +28,7 @@ const removeTokens = (error) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     delete axiosInstance.defaults.headers['Authorization'];
-    window.location.href = '/';  // login/
+    window.location.href = 'login/';
     return Promise.reject(error); 
 };
 
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
 
         if (error.response.status === 401 && originalRequest.url === baseURL + 'api/token/refresh/') {
             console.log('prevent loop - error 401');
-            window.location.href = '/';  // login/
+            window.location.href = 'login/';
             return Promise.reject(error);  // Prevent infinite loops
         }
 

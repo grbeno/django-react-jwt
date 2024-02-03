@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 
 from app.views import React
 from accounts.views import BlacklistTokenUpdateView
@@ -28,6 +28,6 @@ urlpatterns = [
     path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
-    path('', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
+    re_path(r'.*', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
 
 ]
