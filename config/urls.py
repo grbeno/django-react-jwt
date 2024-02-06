@@ -1,13 +1,10 @@
 from django.contrib import admin
 from django.urls import path, re_path, include
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from app.views import React
 from accounts.views import BlacklistTokenUpdateView
-
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from accounts.views import MyTokenObtainPairView
 
 
 urlpatterns = [
@@ -22,7 +19,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     # JWT
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # logout
     path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),

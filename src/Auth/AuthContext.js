@@ -9,14 +9,13 @@ export default AuthContext;
 export const AuthProvider = ({children}) => {
 
     // signup
-    /*
     const signup = (e, errorCallback) => {
         e.preventDefault();
         axiosInstance.post('accounts/signup/', {
             username: e.target.username.value,
+            email: e.target.email.value,
             password: e.target.password.value,
             password2: e.target.password2.value,
-            //about: e.target.about.value,
         })
         .then((response) => {
             console.log(response);
@@ -27,7 +26,6 @@ export const AuthProvider = ({children}) => {
             console.log(error + ': ' + error.response.data.error_message);
         });
     };
-    */
     
     // login
     const login = (e, errorCallback) => {
@@ -71,7 +69,7 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {login, logout}; // signup
+    const contextData = {signup, login, logout};
       
     return (
         <>

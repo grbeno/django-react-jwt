@@ -2,14 +2,37 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
+from .serializers import SignupSerializer, MyTokenObtainPairSerializer
 
-# class SignupView(APIView):
-#     """ Signup view """
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+
+class SignupView(APIView):
+    """ Create a new user """
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = SignupSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({"message": "User created successfully", "user": serializer.data}, status=status.HTTP_201_CREATED)
+        else:
+            # Error messages
+            for key, value in serializer.errors.items():
+                error_message = str(value[0])
+                affected_field = key
+            #print(error_message)
+            error_info = {'error_message': error_message, 'affected_field': affected_field}
+            return JsonResponse(error_info, status=status.HTTP_400_BAD_REQUEST)
+    
 
 class BlacklistTokenUpdateView(APIView):
     """ Blacklist the refresh token when the user logs out """
