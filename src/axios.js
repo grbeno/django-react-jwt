@@ -107,7 +107,7 @@ axiosInstance.interceptors.response.use(
             }
         } 
         else {
-            console.log("not 401 error");
+            console.log(error.response.status);
             return Promise.reject(error);   
         }    
 });

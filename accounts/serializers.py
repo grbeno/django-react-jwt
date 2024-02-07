@@ -7,7 +7,7 @@ from accounts.models import CustomUser as User
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    
+    """ Custom TokenObtainPairSerializer to include custom claims in the token -> get the username in the token """
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
