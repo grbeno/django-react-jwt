@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { jwtDecode } from "jwt-decode";
 import './App.css';
 import {expirationTime} from './utils';
+import {Link} from 'react-router-dom';
 
 
 const App = () => {
@@ -24,6 +25,9 @@ const App = () => {
       <div className="App">
         <h2>Hello {user.username}!</h2>
         <p>{process.env.REACT_APP_URL}</p>
+        <div>
+          <Link to="/change"><span className="h5 text-primary"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></Link>
+        </div>
         <hr />
       </div>
     ) : (

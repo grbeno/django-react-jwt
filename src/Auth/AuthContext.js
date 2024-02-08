@@ -22,8 +22,8 @@ export const AuthProvider = ({children}) => {
             window.location.href = '/login';
         })
         .catch((error) => {
-            errorCallback('[' + error.response.data.affected_field + ']' + ' ' + error.response.data.error_message);  // "Already existed username or bad password! Try again."
-            console.log(error + ': ' + error.response.data.error_message);
+            errorCallback(`[ ${error.response.data.affected_field} ] ${error.response.data.error_message}`);  // "Already existed username or bad password! Try again."
+            console.log(`${error}: ${error.response.data.error_message}`);
         });
     };
     
@@ -69,7 +69,24 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {signup, login, logout};
+    // change password
+    const change = (e, errorCallback) => {
+        e.preventDefault();
+        axiosInstance.post('accounts/change_password/', {
+            old_password: e.target.old_password.value,
+            new_password: e.target.new_password.value,
+            new_password2: e.target.new_password2.value,
+        })
+        .then((response) => {
+            logout();
+        })
+        .catch((error) => {
+            errorCallback(`[ ${error.response.data.affected_field} ] ${error.response.data.error_message}`);
+            console.log(`${error}: ${error.response.data.error_message}`);
+        });
+    };
+
+    const contextData = {signup, login, logout, change};
       
     return (
         <>

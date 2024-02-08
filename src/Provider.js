@@ -5,6 +5,7 @@ import App from './App';
 import Login from './Auth/Login';
 import Header from './Elements/Header';
 import Signup from './Auth/Signup';
+import ChangePassword from './Auth/ChangePassword';
 
 
 const Provider = () => {
@@ -16,6 +17,7 @@ const Provider = () => {
                     <Routes>
                         <Route path="/login" element={<Login />}/>
                         <Route path="/signup" element={<Signup />}/>
+                        <Route path="/change" element={<ChangePassword />}/>
                     </Routes>
                 <App />
             </AuthProvider>

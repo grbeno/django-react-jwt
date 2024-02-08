@@ -54,6 +54,22 @@ axiosInstance.interceptors.response.use(
             return Promise.reject(error);  // Prevent infinite loops
         }
 
+        // undefined error occurred
+        if (typeof error.response === 'undefined') {
+            alert(
+                'A server/network error occurred. ' + 
+                'We are working on it. Hopfully, we will solve this problem as soon as possible. '
+                //'After you click OK. The page will reload in 5 seconds.'
+            );
+            // reload after 5 seconds
+            // return new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         reject(error);
+            //         window.location.reload();
+            //     }, 5000);
+            // });
+        }
+
         if (error.response.status === 401) {  
             
             if (expirationTime('refresh_token', false) < Date.now() / 1000) {  // refresh token expired
