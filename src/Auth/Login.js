@@ -37,17 +37,21 @@ const Login = () => {
         {!token &&
             <div className="container d-flex p-4 justify-content-center">
                 <form onSubmit={handleLogin}>
-                    <div className='p-2'><input className='p-2 text-center rounded' type="text" name="username" placeholder="Enter your username"/></div>
-                    
+                    <div className='p-2'>
+                        <input className='p-2 text-center rounded' type="text" name="username" placeholder="Enter your username"/>
+                    </div>
                     <div className='p-2 flex'>
                         <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="Enter your password"/>
                         <span class="flex justify-around items-center" onClick={handleShowPassword}>
                             <Icon class="absolute pl-2" icon={icon} size={15}/>
                         </span>
                     </div>
-
-                    <div className='d-flex p-2 pb-4 justify-content-center'><input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Login"/></div>
-                    <p>Not signed up yet?<a href="/signup"> Signup</a></p>
+                    <div className='d-flex p-2 pb-4 justify-content-center'>
+                        <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Login"/>
+                    </div>
+                    <div className='d-flex p-2 pb-4 justify-content-center'>
+                        <p>Not signed up yet?<a href="/signup"> Signup</a></p>
+                    </div>
                 </form>  
             </div>
         }

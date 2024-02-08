@@ -1,11 +1,19 @@
 import React, { useState, useContext } from 'react';
 import AuthContext from './AuthContext';
+import {Icon} from 'react-icons-kit';
+import {eyeOff} from 'react-icons-kit/feather/eyeOff';
+import {eye} from 'react-icons-kit/feather/eye';
 
 
 const ChangePassword = () => {
     
     const {change} = useContext(AuthContext);
     const [error, setError] = useState('');
+    const [icon, setIcon] = useState(eyeOff);
+    const [type, setType] = useState('password');
+    const [old_password, setOldPassword] = useState('');
+    const [new_password, setNewPassword] = useState('');
+    const [new_password2, setNewPassword2] = useState('');
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -14,14 +22,36 @@ const ChangePassword = () => {
         });
     };
 
+    // show-hide password
+    const handleShowPassword = () => {
+        if (type === 'password') {
+            setType('text');
+            setIcon(eye);
+        } else {
+            setType('password');
+            setIcon(eyeOff);
+        }
+    }
+
     return (
         <>
         <div className="container d-flex mt-3 justify-content-center">
             <form onSubmit={handleChange}>
-                <div className='p-2'><input className='p-2 text-center rounded' type="text" name="old_password" placeholder="old_password"/></div>
-                <div className='p-2'><input className='p-2 text-center rounded' type="text" name="new_password" placeholder="new_password"/></div>
-                <div className='p-2'><input className='p-2 text-center rounded' type="text" name="new_password2" placeholder="new_password2"/></div>
-                <div className='d-flex p-2 pb-4 justify-content-center'><input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/></div>         
+                <div className='p-2'>
+                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
+                    <span class="flex justify-around items-center" onClick={handleShowPassword}>
+                        <Icon class="absolute pl-2" icon={icon} size={15}/>
+                    </span>    
+                </div>
+                <div className='p-2'>
+                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
+                </div>
+                <div className='p-2'>
+                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
+                </div>
+                <div className='d-flex p-2 pb-4 justify-content-center'>
+                    <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
+                </div>         
             </form>
         </div>
         {error && 
