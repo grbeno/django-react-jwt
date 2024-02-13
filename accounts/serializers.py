@@ -75,6 +75,28 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.set_password(validated_data['new_password'])
         instance.save()
-
         return instance
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    
+    email = serializers.EmailField(required=True)
+
+    def validate_email(self, value):
+        user = User.objects.filter(email=value)
+        if user.exists():
+            return value
+        else:
+            raise serializers.ValidationError("There is no user with this email address.")
+
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    
+    new_password = serializers.CharField(required=True, validators=[validate_password])
+    new_password2 = serializers.CharField(required=True)
+
+    def validate(self, data):
+        if data['new_password'] != data['new_password2']:
+            raise serializers.ValidationError({'new_password2': 'Passwords must match.'})
+        return data
     

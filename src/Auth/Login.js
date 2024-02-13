@@ -49,8 +49,11 @@ const Login = () => {
                     <div className='d-flex p-2 pb-4 justify-content-center'>
                         <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Login"/>
                     </div>
-                    <div className='d-flex p-2 pb-4 justify-content-center'>
-                        <p>Not signed up yet?<a href="/signup"> Signup</a></p>
+                    <div className='d-flex pb-4 justify-content-center'>
+                        <div className='d-block'> 
+                            <p>Not signed up yet?<a href="/signup"> Signup</a></p>
+                            <p>Forgotten password?<a href="/reset"> Reset</a></p>
+                        </div>
                     </div>
                 </form>  
             </div>

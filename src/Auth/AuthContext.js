@@ -86,7 +86,37 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {signup, login, logout, change};
+    const reset = (e, errorCallback, successCallback) => {
+        e.preventDefault();
+        axiosInstance.post('accounts/reset_password/', {
+            email: e.target.email.value,
+        })
+        .then((response) => {
+            successCallback(`${response.data.message}`);
+            console.log(response);
+        })
+        .catch((error) => {
+            errorCallback(`${error.response.data.error_message}`);
+            console.log(`${error}: ${error.response.data.error_message}`);
+        });
+    };
+
+    const setnew = (e, errorCallback, uid, token) => {
+        e.preventDefault();
+        axiosInstance.post(`accounts/set_new_password/?uid=${uid}&token=${token}`, {
+            password: e.target.password.value,
+            password2: e.target.password2.value,
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            errorCallback(`${error.response.data.error_message}`);
+            console.log(`${error}: ${error.response.data.error_message}`);
+        });
+    };
+
+    const contextData = {signup, login, logout, change, reset, setnew};
       
     return (
         <>

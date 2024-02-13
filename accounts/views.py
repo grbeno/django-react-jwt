@@ -1,4 +1,9 @@
 from django.http import JsonResponse
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,7 +12,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
-from .serializers import SignupSerializer, ChangePasswordSerializer, MyTokenObtainPairSerializer
+from .serializers import (
+    SignupSerializer, 
+    ChangePasswordSerializer, 
+    MyTokenObtainPairSerializer, 
+    ResetPasswordSerializer, 
+    SetNewPasswordSerializer
+)
+from .models import CustomUser as User
+from config.settings import EMAIL_HOST_USER
+from .utils import get_error_message
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -26,11 +40,7 @@ class SignupView(APIView):
             return Response({"message": "User created successfully", "user": serializer.data}, status=status.HTTP_201_CREATED)
         else:
             # Error messages
-            for key, value in serializer.errors.items():
-                error_message = str(value[0])
-                affected_field = key
-            #print(error_message)
-            error_info = {'error_message': error_message, 'affected_field': affected_field}
+            error_info = get_error_message(serializer)
             return JsonResponse(error_info, status=status.HTTP_400_BAD_REQUEST)
         
 
@@ -56,16 +66,61 @@ class ChangePasswordView(APIView):
             return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
         
         # Error messages
-        affected_field = []
-        for key, value in serializer.errors.items():
-            error_message = str(value[0])
-            affected_field.append(f"{key} ")
-        
-        error_info = {'error_message': error_message, 'affected_field': list(affected_field)}
-        
+        error_info = get_error_message(serializer, more_affected_fields=True)
         return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
-    
+
+# RESET PASSWORD
+
+class ResetPasswordView(APIView):
+    """ Reset the user's password """
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request):  
+        serializer = ResetPasswordSerializer(data=request.data, context={"request": request})
+        if serializer.is_valid():
+            user = User.objects.filter(email=request.data.get('email')).first()
+            email = request.data.get('email')
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            # Generate a token for the user
+            token = default_token_generator.make_token(user)
+            # Send the reset link with the token to the user
+            send_mail(
+                'Password reset',
+                f'Click the link to reset your password: http://{request.get_host()}/set_new_password/?uid={uid}&token={token}',
+                EMAIL_HOST_USER,
+                [email],
+                fail_silently=False,
+            )
+            return Response({"message": "Password reset link sent successfully"}, status=status.HTTP_200_OK)
+        
+        error_info = get_error_message(serializer)
+        return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SetNewPasswordView(APIView):
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request, token):
+        serializer = SetNewPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            email = request.data.get('email')
+            user = User.objects.filter(email=email).first()
+            if user:
+                # Check if the token is valid
+                if default_token_generator.check_token(user, token):
+                    # Set the new password
+                    user.set_password(request.data.get('new_password'))
+                    user.save()
+                    return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"error_message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({"error_message": "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class BlacklistTokenUpdateView(APIView):
     """ Blacklist the refresh token when the user logs out """
     
