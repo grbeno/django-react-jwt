@@ -88,7 +88,7 @@ export const AuthProvider = ({children}) => {
 
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
-        axiosInstance.post('accounts/reset_password/', {
+        axiosInstance.post('accounts/password_reset/', {
             email: e.target.email.value,
         })
         .then((response) => {
@@ -100,12 +100,13 @@ export const AuthProvider = ({children}) => {
             console.log(`${error}: ${error.response.data.error_message}`);
         });
     };
-
-    const setnew = (e, errorCallback, uid, token) => {
+    
+    const setnew = (e, errorCallback, token) => {
         e.preventDefault();
-        axiosInstance.post(`accounts/set_new_password/?uid=${uid}&token=${token}`, {
+        axiosInstance.post('accounts/set_new_password/', {  // api/password_reset/confirm
             password: e.target.password.value,
             password2: e.target.password2.value,
+            token,
         })
         .then((response) => {
             console.log(response);

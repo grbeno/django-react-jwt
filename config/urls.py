@@ -3,8 +3,11 @@ from django.urls import path, re_path, include
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from app.views import React
-from accounts.views import BlacklistTokenUpdateView
-from accounts.views import MyTokenObtainPairView
+from accounts.views import (
+    BlacklistTokenUpdateView,
+    MyTokenObtainPairView,
+    # SetNewPasswordView
+)
 
 
 urlpatterns = [
@@ -14,6 +17,10 @@ urlpatterns = [
     # App
     path("", include("app.urls")),
 
+    # Password reset
+    #path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    #path('api/password_reset/confirm/', SetNewPasswordView.as_view(), name='password_reset_confirm'),
+    
     # User model
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),

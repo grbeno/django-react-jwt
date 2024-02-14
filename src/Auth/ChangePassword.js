@@ -31,7 +31,7 @@ const ChangePassword = () => {
             setType('password');
             setIcon(eyeOff);
         }
-    }
+    };
 
     return (
         <>

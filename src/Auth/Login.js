@@ -53,6 +53,7 @@ const Login = () => {
                         <div className='d-block'> 
                             <p>Not signed up yet?<a href="/signup"> Signup</a></p>
                             <p>Forgotten password?<a href="/reset"> Reset</a></p>
+                            <p>setnew test<a href="/setnew"> Setnew</a></p>
                         </div>
                     </div>
                 </form>  

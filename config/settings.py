@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',  # JWT
     'rest_framework_simplejwt.token_blacklist',  # JWT
     'corsheaders',  # corsheaders
+    'django_rest_passwordreset',  # django-rest-passwordreset
 
     # Local apps
     'accounts',
@@ -77,7 +78,10 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ str(BASE_DIR.joinpath('build')), ],
+        'DIRS': [ 
+                str(BASE_DIR.joinpath('build')),
+                str(BASE_DIR.joinpath('templates')), 
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

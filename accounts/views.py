@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
@@ -82,13 +83,14 @@ class ResetPasswordView(APIView):
         if serializer.is_valid():
             user = User.objects.filter(email=request.data.get('email')).first()
             email = request.data.get('email')
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            #uid = urlsafe_base64_encode(force_bytes(user.pk))
             # Generate a token for the user
             token = default_token_generator.make_token(user)
             # Send the reset link with the token to the user
             send_mail(
                 'Password reset',
-                f'Click the link to reset your password: http://{request.get_host()}/set_new_password/?uid={uid}&token={token}',
+                #f'Click the link to reset your password: http://{request.get_host()}/set_new_password/',
+                f"Click the link to reset your password: http://{request.get_host()}/accounts/set_new_password/?token={token}",
                 EMAIL_HOST_USER,
                 [email],
                 fail_silently=False,
@@ -101,24 +103,19 @@ class ResetPasswordView(APIView):
 
 class SetNewPasswordView(APIView):
 
-    permission_classes = (AllowAny,)
-
+    #permission_classes = (AllowAny,)
+    
     def post(self, request, token):
         serializer = SetNewPasswordSerializer(data=request.data)
         if serializer.is_valid():
-            email = request.data.get('email')
-            user = User.objects.filter(email=email).first()
-            if user:
-                # Check if the token is valid
-                if default_token_generator.check_token(user, token):
-                    # Set the new password
-                    user.set_password(request.data.get('new_password'))
-                    user.save()
-                    return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
-                else:
-                    return Response({"error_message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response({"error_message": "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+            # email = request.data.get('email')
+            # user = User.objects.filter(email=email).first()
+            # user.set_password(request.data.get('new_password'))
+            # user.save()
+            return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
+        else:
+            error_info = get_error_message(serializer)
+            return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BlacklistTokenUpdateView(APIView):

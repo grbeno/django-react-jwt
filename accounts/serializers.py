@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.tokens import default_token_generator
 
 from accounts.models import CustomUser as User
 
@@ -99,4 +100,9 @@ class SetNewPasswordSerializer(serializers.Serializer):
         if data['new_password'] != data['new_password2']:
             raise serializers.ValidationError({'new_password2': 'Passwords must match.'})
         return data
+    
+    # def validate_token(self, token, user):
+    #     if not default_token_generator.check_token(user, token):
+    #         raise serializers.ValidationError("Token is required.")
+    #     return token
     

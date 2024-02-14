@@ -3,12 +3,14 @@ import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
-
+import { useLocation } from 'react-router-dom';
 
 const SetNew = () => {
 
     const {setnew} = useContext(AuthContext);
     const [error, setError] = useState("");
+    const query = new URLSearchParams(useLocation().search);
+    const token = query.get('token');
     const [icon, setIcon] = useState(eyeOff);
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
@@ -29,7 +31,9 @@ const SetNew = () => {
         e.preventDefault();
         setnew(e, (errorMessage) => {
             setError(errorMessage);
-        });
+        },
+        token,
+        );
     };
 
     return (
