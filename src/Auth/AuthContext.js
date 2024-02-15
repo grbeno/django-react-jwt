@@ -3,7 +3,6 @@ import axiosInstance from "../axios";
 
 
 export const AuthContext = createContext();
-
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
@@ -88,7 +87,7 @@ export const AuthProvider = ({children}) => {
 
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
-        axiosInstance.post('accounts/password_reset/', {
+        axiosInstance.post('api/password_reset/', {
             email: e.target.email.value,
         })
         .then((response) => {
@@ -103,17 +102,37 @@ export const AuthProvider = ({children}) => {
     
     const setnew = (e, errorCallback, token) => {
         e.preventDefault();
-        axiosInstance.post('accounts/set_new_password/', {  // api/password_reset/confirm
+        axiosInstance.post(`/api/password_reset/confirm/`, { 
             password: e.target.password.value,
-            password2: e.target.password2.value,
             token,
         })
         .then((response) => {
             console.log(response);
+            // message: "Password has been set."
+            window.location.href = '/login/';
         })
         .catch((error) => {
-            errorCallback(`${error.response.data.error_message}`);
-            console.log(`${error}: ${error.response.data.error_message}`);
+            // errorCallback(`${error.response.data.error_message}`);
+            // console.log(`${error}: ${error.response.data.error_message}`);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                const errors = error.response.data;
+                for (const field in errors) {
+                    for (const problem of errors[field]) {
+                        errorCallback(`${field}: ${problem}`);
+                    }
+                }
+            } else if (error.request) {
+                // The request was made but no response was received
+                errorCallback('The request was made but no response was received');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                errorCallback('Error: ' + error.message);
+            }
         });
     };
 

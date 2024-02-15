@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {AuthProvider} from './Auth/AuthContext';
 import App from './App';
 import Login from './Auth/Login';
@@ -17,11 +17,11 @@ const Provider = () => {
             <AuthProvider>
                 <Header />
                     <Routes>
+                        <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>  {/*/api/password_reset/confirm/email/?token=:token*/}
                         <Route path="/login" element={<Login />}/>
                         <Route path="/signup" element={<Signup />}/>
                         <Route path="/change" element={<ChangePassword />}/>
                         <Route path="/reset" element={<ResetPassword />}/>
-                        <Route path="/setnew" element={<SetNew />}/>
                     </Routes>
                 <App />
             </AuthProvider>

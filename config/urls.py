@@ -6,7 +6,8 @@ from app.views import React
 from accounts.views import (
     BlacklistTokenUpdateView,
     MyTokenObtainPairView,
-    # SetNewPasswordView
+    #MyPasswordTokenView,
+    #SetNewPasswordView
 )
 
 
@@ -18,8 +19,8 @@ urlpatterns = [
     path("", include("app.urls")),
 
     # Password reset
-    #path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
-    #path('api/password_reset/confirm/', SetNewPasswordView.as_view(), name='password_reset_confirm'),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    # path('api/password_reset/confirm/', MyPasswordTokenView.as_view(), name='password_reset_confirm'),
     
     # User model
     path('accounts/', include('accounts.urls')),
@@ -32,6 +33,6 @@ urlpatterns = [
     path('api/token/blacklist/', BlacklistTokenUpdateView.as_view(), name='blacklist'),
 
     # React
-    re_path(r'.*', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
+    re_path(r'^.*$', React.as_view(), name='frontend'),  # Uncomment for react development on localhost:3000 -> npm start ...
 
 ]

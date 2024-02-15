@@ -13,12 +13,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
+from django_rest_passwordreset.serializers import PasswordTokenSerializer
+from django_rest_passwordreset.views import ResetPasswordConfirm
+
 from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
     MyTokenObtainPairSerializer, 
-    ResetPasswordSerializer, 
-    SetNewPasswordSerializer
+    #ResetPasswordSerializer, 
+    #SetNewPasswordSerializer,
+    CustomPasswordTokenSerializer
 )
 from .models import CustomUser as User
 from config.settings import EMAIL_HOST_USER
@@ -29,6 +33,10 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
+class MyPasswordTokenView(ResetPasswordConfirm):
+    serializer_class = CustomPasswordTokenSerializer
+
+        
 class SignupView(APIView):
     """ Create a new user """
 
@@ -73,49 +81,52 @@ class ChangePasswordView(APIView):
 
 # RESET PASSWORD
 
-class ResetPasswordView(APIView):
-    """ Reset the user's password """
+# class ResetPasswordView(APIView):
+#     """ Reset the user's password """
 
-    permission_classes = (AllowAny,)
+#     permission_classes = (AllowAny,)
 
-    def post(self, request):  
-        serializer = ResetPasswordSerializer(data=request.data, context={"request": request})
-        if serializer.is_valid():
-            user = User.objects.filter(email=request.data.get('email')).first()
-            email = request.data.get('email')
-            #uid = urlsafe_base64_encode(force_bytes(user.pk))
-            # Generate a token for the user
-            token = default_token_generator.make_token(user)
-            # Send the reset link with the token to the user
-            send_mail(
-                'Password reset',
-                #f'Click the link to reset your password: http://{request.get_host()}/set_new_password/',
-                f"Click the link to reset your password: http://{request.get_host()}/accounts/set_new_password/?token={token}",
-                EMAIL_HOST_USER,
-                [email],
-                fail_silently=False,
-            )
-            return Response({"message": "Password reset link sent successfully"}, status=status.HTTP_200_OK)
+#     def post(self, request):  
+#         serializer = ResetPasswordSerializer(data=request.data, context={"request": request})
+#         if serializer.is_valid():
+#             user = User.objects.filter(email=request.data.get('email')).first()
+#             email = request.data.get('email')
+#             #uid = urlsafe_base64_encode(force_bytes(user.pk))
+#             # Generate a token for the user
+#             token = default_token_generator.make_token(user)
+#             # Send the reset link with the token to the user
+#             send_mail(
+#                 'Password reset',
+#                 #f'Click the link to reset your password: http://{request.get_host()}/set_new_password/',
+#                 f"Click the link to reset your password: http://{request.get_host()}/accounts/email/set_new_password/{token}",
+#                 EMAIL_HOST_USER,
+#                 [email],
+#                 fail_silently=False,
+#             )
+#             return Response({"message": "Password reset link sent successfully"}, status=status.HTTP_200_OK)
+#         else:
+#             return Response(get_error_message(serializer), status=status.HTTP_400_BAD_REQUEST)
         
-        error_info = get_error_message(serializer)
-        return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
+#         # error_info = get_error_message(serializer)
+#         # return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
-class SetNewPasswordView(APIView):
+# class SetNewPasswordView(APIView):
 
-    #permission_classes = (AllowAny,)
+#     #permission_classes = (AllowAny,)
     
-    def post(self, request, token):
-        serializer = SetNewPasswordSerializer(data=request.data)
-        if serializer.is_valid():
-            # email = request.data.get('email')
-            # user = User.objects.filter(email=email).first()
-            # user.set_password(request.data.get('new_password'))
-            # user.save()
-            return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
-        else:
-            error_info = get_error_message(serializer)
-            return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request):
+#         user = request.user
+#         serializer = SetNewPasswordSerializer(data=request.data, context={"request": request})
+#         if serializer.is_valid():
+#             email = serializer.data.get('email')
+#             user = User.objects.filter(email=email).first()
+#             user.set_password(serializer.data.get('password2'))
+#             user.save()
+#             return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
+#         else:
+#             error_info = get_error_message(serializer)
+#             return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BlacklistTokenUpdateView(APIView):

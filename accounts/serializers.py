@@ -3,6 +3,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.tokens import default_token_generator
+from django_rest_passwordreset.serializers import PasswordTokenSerializer
 
 from accounts.models import CustomUser as User
 
@@ -18,6 +19,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # ...
 
         return token
+    
+
+class CustomPasswordTokenSerializer(PasswordTokenSerializer):
+    password = serializers.CharField(required=True, label="Password", validators=[validate_password], style={'input_type': 'password'})
+    token = serializers.CharField()
+
 
 class SignupSerializer(serializers.ModelSerializer):
     
@@ -79,30 +86,30 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ResetPasswordSerializer(serializers.Serializer):
+# class ResetPasswordSerializer(serializers.Serializer):
     
-    email = serializers.EmailField(required=True)
+#     email = serializers.EmailField(required=True)
 
-    def validate_email(self, value):
-        user = User.objects.filter(email=value)
-        if user.exists():
-            return value
-        else:
-            raise serializers.ValidationError("There is no user with this email address.")
+#     def validate_email(self, value):
+#         user = User.objects.filter(email=value)
+#         if user.exists():
+#             return value
+#         else:
+#             raise serializers.ValidationError("There is no user with this email address.")
 
 
-class SetNewPasswordSerializer(serializers.Serializer):
+# class SetNewPasswordSerializer(serializers.Serializer):
     
-    new_password = serializers.CharField(required=True, validators=[validate_password])
-    new_password2 = serializers.CharField(required=True)
+#     password = serializers.CharField(required=True, validators=[validate_password])
+#     password2 = serializers.CharField(required=True)
 
-    def validate(self, data):
-        if data['new_password'] != data['new_password2']:
-            raise serializers.ValidationError({'new_password2': 'Passwords must match.'})
-        return data
+#     def validate(self, data):
+#         if data['password'] != data['password2']:
+#             raise serializers.ValidationError({'password2': 'Passwords must match.'})
+#         return data
     
-    # def validate_token(self, token, user):
-    #     if not default_token_generator.check_token(user, token):
-    #         raise serializers.ValidationError("Token is required.")
-    #     return token
+#     def validate_token(self, token, user):
+#         if not default_token_generator.check_token(user, token):
+#             raise serializers.ValidationError("Token is required.")
+#         return token
     

@@ -1,19 +1,17 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
-import { useLocation } from 'react-router-dom';
+
 
 const SetNew = () => {
 
     const {setnew} = useContext(AuthContext);
-    const [error, setError] = useState("");
-    const query = new URLSearchParams(useLocation().search);
-    const token = query.get('token');
-    const [icon, setIcon] = useState(eyeOff);
+    const [token, setToken] = useState(null);
     const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
+    const [error, setError] = useState("");
+    const [icon, setIcon] = useState(eyeOff);
     const [type, setType] = useState('password');
 
     // show-hide password
@@ -36,6 +34,12 @@ const SetNew = () => {
         );
     };
 
+    useEffect(() => {
+        const url = window.location.href;
+        const token = url.split('/').pop();
+        setToken(token);
+    }, []);
+
     return (
         <>
         <div className="container d-flex p-4 justify-content-center">
@@ -45,10 +49,7 @@ const SetNew = () => {
                         <span class="flex justify-around items-center" onClick={handleShowPassword}>
                             <Icon class="absolute pl-2" icon={icon} size={15}/>
                         </span>
-                    </div>
-                    <div className='p-2'>
-                        <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
-                    </div>
+                </div>
                 <div className='d-flex p-2 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Send"/>
                 </div>
