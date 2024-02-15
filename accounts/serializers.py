@@ -1,12 +1,13 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib.auth.tokens import default_token_generator
-from django_rest_passwordreset.serializers import PasswordTokenSerializer
+from django_rest_passwordreset.serializers import PasswordTokenSerializer, EmailSerializer
 
 from accounts.models import CustomUser as User
 
+
+# JWT serializers
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """ Custom TokenObtainPairSerializer to include custom claims in the token -> get the username in the token """
@@ -21,10 +22,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
     
 
+# django_rest_passwordreset serializers
+
+class CustomEmailSerializer(EmailSerializer):
+    email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])
+
+
 class CustomPasswordTokenSerializer(PasswordTokenSerializer):
     password = serializers.CharField(required=True, label="Password", validators=[validate_password], style={'input_type': 'password'})
     token = serializers.CharField()
 
+
+# User model serializers
 
 class SignupSerializer(serializers.ModelSerializer):
     
@@ -84,32 +93,4 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         instance.set_password(validated_data['new_password'])
         instance.save()
         return instance
-
-
-# class ResetPasswordSerializer(serializers.Serializer):
-    
-#     email = serializers.EmailField(required=True)
-
-#     def validate_email(self, value):
-#         user = User.objects.filter(email=value)
-#         if user.exists():
-#             return value
-#         else:
-#             raise serializers.ValidationError("There is no user with this email address.")
-
-
-# class SetNewPasswordSerializer(serializers.Serializer):
-    
-#     password = serializers.CharField(required=True, validators=[validate_password])
-#     password2 = serializers.CharField(required=True)
-
-#     def validate(self, data):
-#         if data['password'] != data['password2']:
-#             raise serializers.ValidationError({'password2': 'Passwords must match.'})
-#         return data
-    
-#     def validate_token(self, token, user):
-#         if not default_token_generator.check_token(user, token):
-#             raise serializers.ValidationError("Token is required.")
-#         return token
     

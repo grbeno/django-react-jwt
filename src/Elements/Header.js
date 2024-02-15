@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import '../App.css';
 import {Link} from 'react-router-dom';
 import AuthContext from '../Auth/AuthContext';
@@ -24,9 +24,9 @@ const Header = () => {
         });
     }
 
-    // useEffect(() => {       
-    //     isSuperuser();    
-    // }, []);
+    useEffect(() => {
+        isSuperuser();
+    }, []);
 
     return(
         <header>
@@ -40,12 +40,8 @@ const Header = () => {
                         <Link to="/login"><span className="h5 text-success"><i className="fa-solid fa-user mx-2 fa-2x"></i></span></Link>
                     </div>
                 )}
-                {superuser && process.env.REACT_APP_URL==='http://localhost:8000' ? ( 
-                     <a className="h5 m-4 text-light d-none d-md-block" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip fa-2x"></i></span></a>
-                ) : (   
-                    <div></div>
-                )}
                 </>
+                {superuser && process.env.REACT_APP_BASE_URL==='http://localhost:8000' && <a className="h5 m-4 text-light d-none d-md-block" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip fa-2x"></i></span></a>}
             </nav>
         </header>
     )

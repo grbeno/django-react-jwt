@@ -32,7 +32,7 @@ const App = () => {
       </div>
     ) : (
       <div className="App">
-        <h2>Please, log in!</h2>
+        <h6>Not logged in!</h6>
         <hr />
       </div>
     )}

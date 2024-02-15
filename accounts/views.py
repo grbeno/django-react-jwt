@@ -1,9 +1,4 @@
 from django.http import JsonResponse
-from django.urls import reverse
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.core.mail import send_mail
-from django.contrib.auth.tokens import default_token_generator
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -13,16 +8,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
-from django_rest_passwordreset.serializers import PasswordTokenSerializer
-from django_rest_passwordreset.views import ResetPasswordConfirm
+from django_rest_passwordreset.views import ResetPasswordConfirm, ResetPasswordRequestToken
 
 from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
     MyTokenObtainPairSerializer, 
-    #ResetPasswordSerializer, 
-    #SetNewPasswordSerializer,
-    CustomPasswordTokenSerializer
+    CustomPasswordTokenSerializer,
+    CustomEmailSerializer
 )
 from .models import CustomUser as User
 from config.settings import EMAIL_HOST_USER
@@ -33,9 +26,17 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
+# django_rest_passwordreset views
+
 class MyPasswordTokenView(ResetPasswordConfirm):
     serializer_class = CustomPasswordTokenSerializer
 
+
+class MyResetPasswordTokenView(ResetPasswordRequestToken):
+    serializer_class = CustomEmailSerializer
+
+
+# .accounts views
         
 class SignupView(APIView):
     """ Create a new user """
@@ -79,7 +80,7 @@ class ChangePasswordView(APIView):
         return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
-# RESET PASSWORD
+# CUSTOM RESET PASSWORD
 
 # class ResetPasswordView(APIView):
 #     """ Reset the user's password """
@@ -109,24 +110,6 @@ class ChangePasswordView(APIView):
         
 #         # error_info = get_error_message(serializer)
 #         # return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
-
-
-# class SetNewPasswordView(APIView):
-
-#     #permission_classes = (AllowAny,)
-    
-#     def post(self, request):
-#         user = request.user
-#         serializer = SetNewPasswordSerializer(data=request.data, context={"request": request})
-#         if serializer.is_valid():
-#             email = serializer.data.get('email')
-#             user = User.objects.filter(email=email).first()
-#             user.set_password(serializer.data.get('password2'))
-#             user.save()
-#             return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
-#         else:
-#             error_info = get_error_message(serializer)
-#             return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BlacklistTokenUpdateView(APIView):

@@ -38,7 +38,6 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('refresh_token', response.data.refresh);
             axiosInstance.defaults.headers['Authorization'] =
                 'JWT ' + localStorage.getItem('access_token');
-            //window.location.reload();
             window.location.href = '/';
         })
         .catch((error) => {
@@ -95,8 +94,20 @@ export const AuthProvider = ({children}) => {
             console.log(response);
         })
         .catch((error) => {
-            errorCallback(`${error.response.data.error_message}`);
-            console.log(`${error}: ${error.response.data.error_message}`);
+            //errorCallback(`${error.response.data.error_message}`);
+            //console.log(`${error}: ${error.response.data.error_message}`);
+            if (error.response) {
+                const errors = error.response.data;
+                for (const field in errors) {
+                    for (const problem of errors[field]) {
+                        errorCallback(`${field}: ${problem}`);
+                    }
+                }
+            } else if (error.request) {
+                errorCallback('The request was made but no response was received');
+            } else {
+                errorCallback('Error: ' + error.message);
+            }
         });
     };
     

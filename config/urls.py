@@ -6,8 +6,10 @@ from app.views import React
 from accounts.views import (
     BlacklistTokenUpdateView,
     MyTokenObtainPairView,
+
     #MyPasswordTokenView,
     #SetNewPasswordView
+    MyResetPasswordTokenView
 )
 
 

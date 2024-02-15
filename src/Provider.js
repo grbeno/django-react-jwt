@@ -17,7 +17,7 @@ const Provider = () => {
             <AuthProvider>
                 <Header />
                     <Routes>
-                        <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>  {/*/api/password_reset/confirm/email/?token=:token*/}
+                        <Route path="/api/password_reset/confirm/email/:token" element={<SetNew />}/>
                         <Route path="/login" element={<Login />}/>
                         <Route path="/signup" element={<Signup />}/>
                         <Route path="/change" element={<ChangePassword />}/>
