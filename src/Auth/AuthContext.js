@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import axiosInstance from "../axios";
+import { handleErrorMessages } from "../utils";
 
 
 export const AuthContext = createContext();
@@ -90,24 +91,11 @@ export const AuthProvider = ({children}) => {
             email: e.target.email.value,
         })
         .then((response) => {
-            successCallback(`${response.data.message}`);
+            successCallback('Password reset email has been sent.');
             console.log(response);
         })
         .catch((error) => {
-            //errorCallback(`${error.response.data.error_message}`);
-            //console.log(`${error}: ${error.response.data.error_message}`);
-            if (error.response) {
-                const errors = error.response.data;
-                for (const field in errors) {
-                    for (const problem of errors[field]) {
-                        errorCallback(`${field}: ${problem}`);
-                    }
-                }
-            } else if (error.request) {
-                errorCallback('The request was made but no response was received');
-            } else {
-                errorCallback('Error: ' + error.message);
-            }
+            handleErrorMessages(error, errorCallback);
         });
     };
     
@@ -123,27 +111,7 @@ export const AuthProvider = ({children}) => {
             window.location.href = '/login/';
         })
         .catch((error) => {
-            // errorCallback(`${error.response.data.error_message}`);
-            // console.log(`${error}: ${error.response.data.error_message}`);
-            // console.log(error.response.data);
-            // console.log(error.response.status);
-            // console.log(error.response.headers);
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                const errors = error.response.data;
-                for (const field in errors) {
-                    for (const problem of errors[field]) {
-                        errorCallback(`${field}: ${problem}`);
-                    }
-                }
-            } else if (error.request) {
-                // The request was made but no response was received
-                errorCallback('The request was made but no response was received');
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                errorCallback('Error: ' + error.message);
-            }
+            handleErrorMessages(error, errorCallback);
         });
     };
 

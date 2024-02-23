@@ -26,3 +26,19 @@ export const convertTimestampToDate = (timestamp, type) => {
     const timeString = `${year}.${month}.${day}. ${date.toTimeString().split(' ')[0]}`; // Combine date and time strings
     return timeString;
 }
+
+// handle error messages in authcontext
+export const handleErrorMessages = (error, errorCallback) => {
+    if (error.response) {
+        const errors = error.response.data;
+        for (const field in errors) {
+            for (const problem of errors[field]) {
+                return errorCallback(`${field}: ${problem}`);
+            }
+        }
+    } else if (error.request) {
+        return errorCallback('The request was made but no response was received');
+    } else {
+        return errorCallback('Error: ' + error.message);
+    }
+}
