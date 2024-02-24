@@ -8,6 +8,7 @@ import Signup from './Auth/Signup';
 import ChangePassword from './Auth/ChangePassword';
 import ResetPassword from './Auth/ResetPassword';
 import SetNew from './Auth/SetNewPassword';
+import ResetSuccess from './Auth/ResetSuccess';
 
 
 const Provider = () => {
@@ -22,6 +23,7 @@ const Provider = () => {
                         <Route path="/signup" element={<Signup />}/>
                         <Route path="/change" element={<ChangePassword />}/>
                         <Route path="/reset" element={<ResetPassword />}/>
+                        <Route path="/success" element={<ResetSuccess />}/>
                     </Routes>
                 <App />
             </AuthProvider>

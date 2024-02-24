@@ -107,8 +107,7 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
-            // message: "Password has been set."
-            window.location.href = '/login/';
+            window.location.href = '/success/';
         })
         .catch((error) => {
             handleErrorMessages(error, errorCallback);
