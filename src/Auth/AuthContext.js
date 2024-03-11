@@ -114,7 +114,20 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {signup, login, logout, change, reset, setnew};
+    const deleteuser = (errorCallback, id) => {
+        axiosInstance.delete(`/accounts/delete_user/${id}`, {
+            id,
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.href = '/login';
+        })
+        .catch((error) => {
+            handleErrorMessages(error, errorCallback);
+        });
+    };
+
+    const contextData = {signup, login, logout, change, reset, setnew, deleteuser};
       
     return (
         <>

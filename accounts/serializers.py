@@ -7,6 +7,12 @@ from django_rest_passwordreset.serializers import PasswordTokenSerializer, Email
 from accounts.models import CustomUser as User
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 # JWT serializers
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

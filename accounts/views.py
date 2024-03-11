@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -10,15 +10,15 @@ from rest_framework_simplejwt.exceptions import TokenError
 
 from django_rest_passwordreset.views import ResetPasswordConfirm, ResetPasswordRequestToken
 
+from .models import CustomUser as User
 from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
     MyTokenObtainPairSerializer, 
     CustomPasswordTokenSerializer,
-    CustomEmailSerializer
+    CustomEmailSerializer,
+    UserSerializer
 )
-from .models import CustomUser as User
-from config.settings import EMAIL_HOST_USER
 from .utils import get_error_message
 
 
@@ -80,38 +80,6 @@ class ChangePasswordView(APIView):
         return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
 
 
-# CUSTOM RESET PASSWORD
-
-# class ResetPasswordView(APIView):
-#     """ Reset the user's password """
-
-#     permission_classes = (AllowAny,)
-
-#     def post(self, request):  
-#         serializer = ResetPasswordSerializer(data=request.data, context={"request": request})
-#         if serializer.is_valid():
-#             user = User.objects.filter(email=request.data.get('email')).first()
-#             email = request.data.get('email')
-#             #uid = urlsafe_base64_encode(force_bytes(user.pk))
-#             # Generate a token for the user
-#             token = default_token_generator.make_token(user)
-#             # Send the reset link with the token to the user
-#             send_mail(
-#                 'Password reset',
-#                 #f'Click the link to reset your password: http://{request.get_host()}/set_new_password/',
-#                 f"Click the link to reset your password: http://{request.get_host()}/accounts/email/set_new_password/{token}",
-#                 EMAIL_HOST_USER,
-#                 [email],
-#                 fail_silently=False,
-#             )
-#             return Response({"message": "Password reset link sent successfully"}, status=status.HTTP_200_OK)
-#         else:
-#             return Response(get_error_message(serializer), status=status.HTTP_400_BAD_REQUEST)
-        
-#         # error_info = get_error_message(serializer)
-#         # return Response(error_info, status=status.HTTP_400_BAD_REQUEST)
-
-
 class BlacklistTokenUpdateView(APIView):
     """ Blacklist the refresh token when the user logs out """
     
@@ -134,3 +102,25 @@ class IsSuperuser(APIView):
         user = request.user
         is_superuser = user.is_superuser
         return JsonResponse({'is_superuser': is_superuser})
+
+
+class DeleteUser(APIView):
+    """ Delete the user account """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self, pk):
+        print(f'PK: {pk}')
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+# class DeleteUser(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer

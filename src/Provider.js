@@ -9,6 +9,7 @@ import ChangePassword from './Auth/ChangePassword';
 import ResetPassword from './Auth/ResetPassword';
 import SetNew from './Auth/SetNewPassword';
 import ResetSuccess from './Auth/ResetSuccess';
+import DeleteUser from './Auth/DeleteUser';
 
 
 const Provider = () => {
@@ -24,6 +25,8 @@ const Provider = () => {
                         <Route path="/change" element={<ChangePassword />}/>
                         <Route path="/reset" element={<ResetPassword />}/>
                         <Route path="/success" element={<ResetSuccess />}/>
+                        <Route path="/delete_user/:id" element={<DeleteUser />}/>
+
                     </Routes>
                 <App />
             </AuthProvider>
