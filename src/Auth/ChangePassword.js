@@ -36,22 +36,26 @@ const ChangePassword = () => {
     return (
         <>
         <div className="container d-flex mt-3 justify-content-center">
-            <form onSubmit={handleChange}>
-                <div className='p-2'>
-                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
-                    <span class="flex justify-around items-center" onClick={handleShowPassword}>
-                        <Icon class="absolute pl-2" icon={icon} size={15}/>
+            <form className='auth-form' onSubmit={handleChange}>
+            <fieldset>
+                <legend>Change password</legend>
+                <hr className='bg-light'/>
+                <div className='p-2 position-relative'>
+                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setOldPassword(e.target.value)} value={old_password} name="old_password" placeholder="old_password"/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
+                        <Icon icon={icon} size={15}/>
                     </span>    
                 </div>
                 <div className='p-2'>
-                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
+                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setNewPassword(e.target.value)} value={new_password} name="new_password" placeholder="new_password"/>
                 </div>
                 <div className='p-2'>
-                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
+                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
                 </div>
                 <div className='d-flex p-2 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
-                </div>         
+                </div>
+            </fieldset>       
             </form>
         </div>
         {error && 

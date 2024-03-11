@@ -1,4 +1,5 @@
 body {
+  background: gray;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -14,4 +15,27 @@ body {
 
 .offbutton {
   cursor: pointer;
+}
+
+/* Auth forms */
+
+.auth-form {
+  padding: 7%;
+  background: rgb(32, 32, 32);
+  border: 1px solid white;
+}
+
+.auth-form fieldset legend {
+  color: #f7f2f2;
+}
+
+.eye-icon {
+  color: black;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  margin-right: 2%;
+  padding-right: .20rem; 
 }

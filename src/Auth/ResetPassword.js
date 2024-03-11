@@ -27,18 +27,22 @@ const Reset = () => {
     return (
         <>
         <div className="container d-flex p-4 justify-content-center">
-            <form onSubmit={handleReset}>
+            <form className='auth-form' onSubmit={handleReset}>
+            <fieldset>
+                <legend>New password</legend>
+                <hr className='bg-light'/>
                 <div className='p-2'>
                     <input className='p-2 text-center rounded' type="text" name="email" placeholder="email"/>
                 </div>
                 <div className='d-flex p-2 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Send"/>
                 </div>
+            </fieldset>
             </form>  
         </div>
         {success && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-light rounded" style={{backgroundColor: '#00cc00'}}>
+                <h5 className="p-4 text-light rounded" style={{backgroundColor: '#008b8b'}}>
                     <i className="sign-icon fa-solid fa-circle-check mx-3"></i>
                     {success}
                 </h5>

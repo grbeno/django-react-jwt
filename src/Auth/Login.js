@@ -35,35 +35,40 @@ const Login = () => {
     return (
         <>
         {!token &&
-            <div className="container d-flex p-4 justify-content-center">
-                <form onSubmit={handleLogin}>
+            <div className="container d-flex p-4 mt-4 justify-content-center">
+                <form className='auth-form' onSubmit={handleLogin}>
+                <fieldset>
+                    <legend className='text-light'>Login</legend>
+                    <hr className='bg-light'/>
                     <div className='p-2'>
-                        <input className='p-2 text-center rounded' type="text" name="username" placeholder="Enter your username"/>
+                        <input className='p-2 text-center rounded form-control' type="text" name="username" placeholder="username"/>
                     </div>
-                    <div className='p-2 flex'>
-                        <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="Enter your password"/>
-                        <span class="flex justify-around items-center" onClick={handleShowPassword}>
-                            <Icon class="absolute pl-2" icon={icon} size={15}/>
+                    <div className='p-2 position-relative'>
+                        <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                        <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
+                            <Icon icon={icon} size={13}/>
                         </span>
                     </div>
                     <div className='d-flex p-2 pb-4 justify-content-center'>
                         <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Login"/>
                     </div>
                     <div className='d-flex pb-4 justify-content-center'>
-                        <div className='d-block'> 
-                            <p>Not signed up yet?<a href="/signup"> Signup</a></p>
-                            <p>Forgotten password?<a href="/reset"> Reset</a></p>
+                        <div className='d-block text-light'>
+                        <hr className='bg-light'/> 
+                            <h6>Not signed up yet?<a href="/signup" className='text-warning'> Signup</a></h6>
+                            <h6>Forgotten password?<a href="/reset" className='text-warning'> Reset</a></h6>
                         </div>
                     </div>
+                </fieldset>
                 </form>  
             </div>
         }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
-                    <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
+                <h6 className="p-4 rounded" style={{backgroundColor: "#dee2e6", color: "#cd1414"}}>
+                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-3" style={{transform: "translateY(16%)", color: "#cd1414"}}></i>
                     {error}
-                </h5>
+                </h6>
             </div>
         }
         </>

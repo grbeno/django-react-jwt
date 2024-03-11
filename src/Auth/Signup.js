@@ -37,25 +37,29 @@ const Signup = () => {
         <>
         {!token &&
             <div className="container d-flex mt-3 justify-content-center">
-                <form onSubmit={handleSignup}>
+                <form className="auth-form" onSubmit={handleSignup}>
+                <fieldset>
+                    <legend>Signup</legend>
+                    <hr className='bg-light'/>
                     <div className='p-2'>
-                        <input className='p-2 text-center rounded' type="text" name="username" placeholder="username"/>
+                        <input className='p-2 text-center rounded form-control' type="text" name="username" placeholder="username"/>
                     </div>
                     <div className='p-2'>
-                        <input className='p-2 text-center rounded' type="text" name="email" placeholder="email"/>
+                        <input className='p-2 text-center rounded form-control' type="text" name="email" placeholder="email"/>
                     </div>
-                    <div className='p-2'>
-                        <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
-                        <span class="flex justify-around items-center" onClick={handleShowPassword}>
-                            <Icon class="absolute pl-2" icon={icon} size={15}/>
+                    <div className='p-2 position-relative'>
+                        <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                        <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
+                            <Icon icon={icon} size={13}/>
                         </span>
                     </div>
-                    <div className='p-2'>
-                        <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
+                    <div className='p-2 position-relative'>
+                        <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
                     </div>
                     <div className='d-flex p-2 justify-content-center'>
                         <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Signup"/>
-                    </div>   
+                    </div>
+                </fieldset>
                 </form>
             </div>
         }
@@ -69,13 +73,15 @@ const Signup = () => {
             </div>
             </>
         }
-        <div className='d-flex m-3 bg-secondary justify-content-center'>
-            <ul class="h6 text-light">
-                <li class="mt-4 mb-2">Your password must contain at least 8 characters.</li>
-                <li class="mb-2">Your password must contain at least one number.</li>
-                <li class="mb-2">Your password must contain at least one uppercase letter.</li>
-                <li class="mb-4">Your password must contain only alphanumeric characters.</li>
-            </ul>
+        <div className='d-flex pb-4 justify-content-center'>
+            <div className='d-block text-light'>
+                <ul class="h6 text-warning">
+                    <li class="mt-4 mb-2">Your password must contain at least 8 characters.</li>
+                    <li class="mb-2">Your password must contain at least one number.</li>
+                    <li class="mb-2">Your password must contain at least one uppercase letter.</li>
+                    <li class="mb-4">Your password must contain only alphanumeric characters.</li>
+                </ul>
+            </div>
         </div>
         </>
     );

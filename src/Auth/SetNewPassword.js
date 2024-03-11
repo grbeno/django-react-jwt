@@ -43,16 +43,20 @@ const SetNew = () => {
     return (
         <>
         <div className="container d-flex p-4 justify-content-center">
-            <form onSubmit={handleSetNew}>
-                <div className='p-2'>
-                    <input className='p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
-                        <span class="flex justify-around items-center" onClick={handleShowPassword}>
-                            <Icon class="absolute pl-2" icon={icon} size={15}/>
+            <form className='auth-form' onSubmit={handleSetNew}>
+            <fieldset>
+                <legend>Set new Password</legend>
+                <hr className='bg-light'/>
+                <div className='p-2 position-relative'>
+                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                        <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
+                            <Icon icon={icon} size={13}/>
                         </span>
                 </div>
                 <div className='d-flex p-2 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Send"/>
                 </div>
+            </fieldset>
             </form>  
         </div>
         {error && 

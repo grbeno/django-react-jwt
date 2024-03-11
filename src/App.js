@@ -42,7 +42,7 @@ const App = () => {
         <div>
           <Link to="/change"><span className="h5 text-primary"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></Link>
           {/* <Link to={`/delete_user/${user.user_id}`}><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></Link> */}
-          <button onClick={handleDeleteUser}><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
+          <button onClick={handleDeleteUser} className='bg-transparent border-0'><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
         </div>
         <hr />
       </div>
