@@ -110,7 +110,6 @@ class DeleteUser(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get_object(self, pk):
-        print(f'PK: {pk}')
         try:
             return User.objects.get(pk=pk)
         except User.DoesNotExist:
@@ -120,7 +119,3 @@ class DeleteUser(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-# class DeleteUser(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer

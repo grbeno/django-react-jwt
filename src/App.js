@@ -4,6 +4,7 @@ import './App.css';
 import {expirationTime} from './utils';
 import {Link} from 'react-router-dom';
 import AuthContext from './Auth/AuthContext';
+import axiosInstance from './axios';
 
 
 const App = () => {
@@ -18,14 +19,24 @@ const App = () => {
 
   const [error, setError] = useState("");
 
-  const handleDeleteUser = (e) => {
+  const handleDeleteUser = async (e) => {
     e.preventDefault();
-    deleteuser((errorMessage) => {
-        setError(errorMessage);
-    },
-    user.user_id,
-    );
-  }
+    const userConfirmation = window.confirm("Are you sure? This action cannot be undone. The user will be deleted.");
+    if (!userConfirmation) {
+        return; // If the user clicks "Cancel", stop the function
+    }
+    try {
+        await deleteuser((errorMessage) => {
+            setError(errorMessage);
+        }, user.user_id);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        delete axiosInstance.defaults.headers['Authorization'];
+    } catch (error) {
+        console.error(error);
+        // Handle error as needed
+    }
+}
 
   // useEffect for tokens
   useEffect(() => {
@@ -40,9 +51,9 @@ const App = () => {
         <h2>Hello {user.username}!</h2>
         <p>{process.env.REACT_APP_URL}</p>
         <div>
-          <Link to="/change"><span className="h5 text-primary"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></Link>
+          <Link to="/change"><span className="h5 text-light"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></Link>
           {/* <Link to={`/delete_user/${user.user_id}`}><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></Link> */}
-          <button onClick={handleDeleteUser} className='bg-transparent border-0'><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
+          <button onClick={handleDeleteUser} className='bg-transparent border-0'><span className="h5 text-light"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
         </div>
         <hr />
       </div>
