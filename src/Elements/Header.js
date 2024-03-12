@@ -37,7 +37,7 @@ const Header = () => {
                     <span className="offbutton h5 m-4 text-light d-block" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off fa-2x"></i></span></span>
                 ) : (
                     <div>
-                        <Link to="/login"><span className="h5 text-light"><i className="fa-solid fa-user mx-2 fa-2x"></i></span></Link>
+                        <Link to="/login"><span className="h5 text-light" data-toggle="tooltip" title="login"><i className="fa-solid fa-user mx-2 fa-2x"></i></span></Link>
                     </div>
                 )}
                 </>

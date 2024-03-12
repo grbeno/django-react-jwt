@@ -37,6 +37,12 @@ const Reset = () => {
                 <div className='d-flex p-2 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Send"/>
                 </div>
+                <div className='d-flex pb-4 justify-content-center'>
+                    <div className='d-block text-light'>
+                        <hr className='bg-light'/> 
+                        <p>Type your email address!</p>
+                    </div>
+                </div>
             </fieldset>
             </form>  
         </div>

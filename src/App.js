@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState, useContext} from 'react';
 import { jwtDecode } from "jwt-decode";
 import './App.css';
 import {expirationTime} from './utils';
-import {Link} from 'react-router-dom';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
 
@@ -21,10 +20,13 @@ const App = () => {
 
   const handleDeleteUser = async (e) => {
     e.preventDefault();
+    
     const userConfirmation = window.confirm("Are you sure? This action cannot be undone. The user will be deleted.");
+    
     if (!userConfirmation) {
         return; // If the user clicks "Cancel", stop the function
     }
+    
     try {
         await deleteuser((errorMessage) => {
             setError(errorMessage);
@@ -34,9 +36,8 @@ const App = () => {
         delete axiosInstance.defaults.headers['Authorization'];
     } catch (error) {
         console.error(error);
-        // Handle error as needed
     }
-}
+  }
 
   // useEffect for tokens
   useEffect(() => {
@@ -46,14 +47,18 @@ const App = () => {
 
   return (
     <>
-    {token ? (
+    {token && window.location.pathname === '/' ? (
       <div className="App">
-        <h2>Hello {user.username}!</h2>
-        <p>{process.env.REACT_APP_URL}</p>
-        <div>
-          <Link to="/change"><span className="h5 text-light"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></Link>
-          {/* <Link to={`/delete_user/${user.user_id}`}><span className="h5 text-primary"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></Link> */}
-          <button onClick={handleDeleteUser} className='bg-transparent border-0'><span className="h5 text-light"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
+        <div className="d-flex justify-content-center">
+          <div className="border border-light w-25 p-4 bg-dark">
+            <h2 className="text-light">Hello {user.username}!</h2>
+            <hr className='bg-light'/>
+            <p>{process.env.REACT_APP_URL}</p>
+            <div>
+              <a href="/change"><span className="h5 text-info" data-toggle="tooltip" title="change password"><i className="fa-solid fa-key mx-2 fa-2x"></i></span></a>
+              <button onClick={handleDeleteUser} className='bg-transparent border-0'><span className="h5 text-danger" data-toggle="tooltip" title="delete user"><i className="fa-solid fa-user-xmark mx-2 fa-2x"></i></span></button>
+            </div>
+          </div>
         </div>
         <hr />
       </div>

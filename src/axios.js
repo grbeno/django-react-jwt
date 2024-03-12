@@ -46,7 +46,6 @@ axiosInstance.interceptors.response.use(
     response => response,
     error => {
         const originalRequest = error.config;
-        // console.log('response ' + JSON.stringify(error.response));
 
         if (error.response.status === 401 && originalRequest.url === baseURL + 'api/token/refresh/') {
             console.log('prevent loop - error 401');

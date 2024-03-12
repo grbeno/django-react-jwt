@@ -2,7 +2,6 @@ import React, { createContext } from "react";
 import axiosInstance from "../axios";
 import { handleErrorMessages } from "../utils";
 
-
 export const AuthContext = createContext();
 export default AuthContext;
 
@@ -85,6 +84,7 @@ export const AuthProvider = ({children}) => {
         });
     };
 
+    // reset password
     const reset = (e, errorCallback, successCallback) => {
         e.preventDefault();
         axiosInstance.post('api/password_reset/', {
@@ -99,6 +99,7 @@ export const AuthProvider = ({children}) => {
         });
     };
     
+    // set new password
     const setnew = (e, errorCallback, token) => {
         e.preventDefault();
         axiosInstance.post(`/api/password_reset/confirm/`, { 
@@ -114,6 +115,7 @@ export const AuthProvider = ({children}) => {
         });
     };
 
+    // delete user
     const deleteuser = (errorCallback, id) => {
         axiosInstance.delete(`/accounts/delete_user/${id}`, {
             id,
