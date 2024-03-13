@@ -1,7 +1,7 @@
 
 ## Django-React template/start project with JWT authentication
 
-> **_NOTE:_** The goal of this repository is to provide a basic template or a starting point for a Django web application using React as a frontend. If you finds it is useful, then you can download the zip file and you can start your own project.  
+> **_NOTE:_** The goal of this repository is to provide a basic template or a starting point for a Django web application, using React as the frontend. If you find it useful, you can download the zip file and start your own project. 
 ---
 
 ### Features
