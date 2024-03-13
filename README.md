@@ -11,6 +11,9 @@
 ### Stack
 ``` Django ``` ``` Django REST framework``` ``` ReactJS ``` ``` PostgreSQL ``` ``` Bootstrap ``` ``` CSS ```
 
+### Prerequisits
+[`Python 3.11.5`](https://www.python.org/downloads/) [`Pipenv`](https://pypi.org/project/pipenv/) [`Django`](https://www.djangoproject.com/) [`PostgreSQL`](https://www.postgresql.org/download/) [`Node`](https://nodejs.org/en/download) [`nvm`](https://github.com/nvm-sh/nvm)
+
 ### Variables
 ```
 # .env
