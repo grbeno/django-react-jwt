@@ -42,7 +42,8 @@ psql -U postgres
 ```
 CREATE DATABASE <db_name> WITH OWNER postgres;
 ```
-#### :point_right: Migrate the models to database & run collectstatic for the static files:
+#### :point_right: Activate the virtual environment and migrate the models to database:
+> #### :memo: _Set the project directory in the CLI_ 
 ```
 pipenv shell
 ```
