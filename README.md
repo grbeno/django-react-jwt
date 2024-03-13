@@ -17,6 +17,8 @@
 ```
 # .env
 
+# .env
+
 SECRET_KEY=<django_secret_key>
 DEBUG=True
 DATABASE_URL=postgres://postgres:<db_password>@localhost:5432/<db_name>
@@ -29,9 +31,14 @@ REACT_APP_BASE_URL=http://localhost:8000
 ## Getting Started
 #### :point_right: Download the zip file
 #### :point_right: Install the required python libraries and packages:
+#### :point_right: Download the zip file
+#### :point_right: Install the required python libraries and packages:
 ```
 pipenv install -r requirements.txt
 ```
+#### :point_right: Create postgres database on your local system
+#### :point_right: Download & install postgres
+#### :point_right: Create database:
 #### :point_right: Create postgres database on your local system
 #### :point_right: Download & install postgres
 #### :point_right: Create database:
@@ -43,6 +50,8 @@ CREATE DATABASE <db_name> WITH OWNER postgres;
 ```
 #### :point_right: Activate the virtual environment and migrate the models to database:
 > #### :memo: _Set the project directory in the CLI_ 
+#### :point_right: Activate the virtual environment and migrate the models to database:
+> #### :memo: _Set the project directory in the CLI_ 
 ```
 pipenv shell
 ```
@@ -50,12 +59,14 @@ pipenv shell
 python manage.py migrate
 ```
 #### :point_right: Install node modules and build:
+#### :point_right: Install node modules and build:
 ```
 npm install
 ```
 ```
 npm run build
 ```
+#### :point_right: Run on localhost:
 #### :point_right: Run on localhost:
 ```
 python manage.py runserver
