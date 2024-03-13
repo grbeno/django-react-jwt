@@ -57,5 +57,5 @@ npm run build
 ```
 python manage.py runserver
 ```
-#### :triumph: Finally, initialize your own git repo and commit/push to github
+#### :triumph: Finally, initialize your own git repo and commit/push to github :clap:
 
