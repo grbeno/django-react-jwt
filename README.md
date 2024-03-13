@@ -13,6 +13,8 @@
 
 ### Variables
 ```
+# .env
+
 SECRET_KEY=<django_secret_key>
 DEBUG=True
 DATABASE_URL=postgres://postgres:<db_password>@localhost:5432/<db_name>
