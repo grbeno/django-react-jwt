@@ -25,37 +25,37 @@ REACT_APP_BASE_URL=http://localhost:8000
 ```
 
 ## Getting Started
-#### Download the zip file
-#### Install the required python libraries and packages:
+#### :point_right: Download the zip file
+#### :point_right: Install the required python libraries and packages:
 ```
 pipenv install -r requirements.txt
 ```
-#### Create postgres database on your local system
-#### Download & install postgres
-#### Create database:
+#### :point_right: Create postgres database on your local system
+#### :point_right: Download & install postgres
+#### :point_right: Create database:
 ```
 psql -U postgres
 ```
 ```
 CREATE DATABASE <db_name> WITH OWNER postgres;
 ```
-#### Migrate the models to database & run collectstatic for the static files:
+#### :point_right: Migrate the models to database & run collectstatic for the static files:
 ```
 pipenv shell
 ```
 ```
 python manage.py migrate
 ```
-#### Install node modules and build:
+#### :point_right: Install node modules and build:
 ```
 npm install
 ```
 ```
 npm run build
 ```
-#### Run on localhost:
+#### :point_right: Run on localhost:
 ```
 python manage.py runserver
 ```
-#### Finally, initialize your own git repo and commit/push to github
+#### :triumph: Finally, initialize your own git repo and commit/push to github
 
