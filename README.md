@@ -1,7 +1,7 @@
 
 ## Django-React template/start project with JWT authentication
 
-> **_NOTE:_** The goal of this repository is to provide a basic template or a starting point for a Django web application, using React as the frontend. If you find it useful, you can download the zip file and start your own project. 
+> The goal of this repository is to provide a basic template or a starting point for a Django web application, using React as the frontend. If you find it useful, you can download the zip file and start your own project. 
 ---
 
 ### Features
@@ -10,40 +10,59 @@
 ### Stack
 ``` Django ``` ``` Django REST framework``` ``` ReactJS ``` ``` PostgreSQL ``` ``` Bootstrap ``` ``` CSS ```
 
-### Getting Started
----
-- Download the zip file
-- Create your own virtual environment on your project directory and install the required libraries/packages. (pipenv) 
+### Variables
+```
+SECRET_KEY=<django_secret_key>
+DEBUG=True
+DATABASE_URL=postgres://postgres:<db_password>@localhost:5432/<db_name>
+SSL_REQUIRE=False
+EMAIL_USER=<email_address>
+EMAIL_PASSWORD=<email_password>
+REACT_APP_BASE_URL=http://localhost:8000
+```
 
-  - ```$ pipenv install -r requirements.txt```
+## Getting Started
 
-- Create postgres database on your local system
+### Download the zip file
 
-  - ``` # Download & install postgres ```
-  - ``` psql -U postgres ```
-  - ``` CREATE DATABASE <db_name> WITH OWNER postgres; ```
+##### _Install the required python libraries and packages_
 
-- Create .env file that includes DEBUG, SECRET_KEY, SSL_REQUIRE, DATABASE_URL values
+```
+pipenv install -r requirements.txt
+```
 
-  - ``` # Generate secret key ```
-  - ``` $ python -c 'import secrets;print(secrets.token_urlsafe())' ```
-  - ``` DATABASE_URL=postgres://postgres:<password>@localhost:5432/<database> ```
+### Create postgres database on your local system
 
-- Migrate the models to database & run collectstatic for the static files
+##### _Download & install postgres_
+```
+psql -U postgres
+```
+```
+CREATE DATABASE <db_name> WITH OWNER postgres;
+```
 
-  - ``` $ pipenv shell ```
-  - ``` $ python manage.py migrate ```
-  - ``` $ python manage.py collectstatic --noinput ```
+### Migrate the models to database & run collectstatic for the static files
 
-- Install node modules and build
+```
+pipenv shell
+```
+```
+python manage.py migrate
+```
 
-  -  ``` $ npm install ```
-  -  ``` $ npm run build ```
-    
-- Run on localhost
-  -  ``` $ python manage.py runserver ```
+### Install node modules and build
+
+```
+npm install
+```
+```
+npm run build
+```
   
-- Initialize your own git repo and commit/push to github
+### Run on localhost
+```
+python manage.py runserver
+```
 
-### Deploying
----
+### Finally, initialize your own git repo and commit/push to github
+
