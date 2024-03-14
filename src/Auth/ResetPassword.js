@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
-import AuthContext from "./AuthContext";
-
+import AuthContext from "./AuthContext"
+import {Icon} from 'react-icons-kit'
+import {mail} from 'react-icons-kit/feather/mail'
 
 const Reset = () => {
 
@@ -29,7 +30,11 @@ const Reset = () => {
         <div className="container d-flex p-4 justify-content-center">
             <form className='auth-form' onSubmit={handleReset}>
             <fieldset>
-                <legend>New password</legend>
+                <legend>New password
+                    <span className='text-light mx-2'>
+                        <Icon style={{transform: "translateY(-5%)"}} icon={mail} size={20}/>
+                    </span>
+                </legend>
                 <hr className='bg-light'/>
                 <div className='p-2'>
                     <input className='p-2 text-center rounded' type="text" name="email" placeholder="email"/>
@@ -48,18 +53,18 @@ const Reset = () => {
         </div>
         {success && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-light rounded" style={{backgroundColor: '#008b8b'}}>
+                <h6 className="p-4 text-light rounded">
                     <i className="sign-icon fa-solid fa-circle-check mx-3"></i>
                     {success}
-                </h5>
+                </h6>
             </div>
         }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
+                <h6 className="p-4 text-danger rounded">
                     <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
                     {error}
-                </h5>
+                </h6>
             </div>
         }
         </>

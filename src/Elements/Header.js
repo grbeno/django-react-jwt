@@ -30,14 +30,14 @@ const Header = () => {
 
     return(
         <header>
-            <nav className="navbar navbar-expand-md m-0 border-bottom bg-dark shadow-sm">
-                <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house fa-2x"></i></span></a>
+            <nav className="navbar navbar-expand-md m-0 border-bottom shadow-sm" style={{background: 'black'}}>
+                <a className="menu-link navbar-brand mr-auto px-4 text-light" href='/'><span data-toggle="tooltip" title="home"><i className="fa-solid fa-house fa"></i></span></a>
                 <>
                 {token ? (
-                    <span className="offbutton h5 m-4 text-light d-block" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off fa-2x"></i></span></span>
+                    <span className="offbutton h5 m-4 text-light d-block" onClick={handleLogout}><span data-toggle="tooltip" title="logout"><i className="fa-solid fa-power-off fa"></i></span></span>
                 ) : (
                     <div>
-                        <Link to="/login"><span className="h5 text-light" data-toggle="tooltip" title="login"><i className="fa-solid fa-user mx-2 fa-2x"></i></span></Link>
+                        <Link to="/login"><span className="h5 text-light" data-toggle="tooltip" title="login"><i className="fa-solid fa-user mx-2 fa"></i></span></Link>
                     </div>
                 )}
                 </>

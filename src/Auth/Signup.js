@@ -3,7 +3,8 @@ import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
-
+import {unlock} from 'react-icons-kit/feather/unlock'
+import {info} from 'react-icons-kit/feather/info'
 
 const Signup = () => {
 
@@ -36,10 +37,17 @@ const Signup = () => {
     return (
         <>
         {!token &&
-            <div className="container d-flex mt-3 justify-content-center">
+            <div className="container d-flex mt-4 justify-content-center">
                 <form className="auth-form" onSubmit={handleSignup}>
                 <fieldset>
-                    <legend>Signup</legend>
+                    <legend>Sign up 
+                        <span className='text-light mx-2'>
+                            <Icon style={{transform: "translateY(-5%)"}} icon={unlock} size={20}/>
+                        </span>
+                        <span className='text-warning' data-toggle="tooltip" title="Your password must contain at least 8 characters, at least one number, at least one uppercase letter and only alphanumeric characters.">
+                            <Icon style={{transform: "translateY(-5%)"}} icon={info} size={20}/>
+                        </span>
+                    </legend>
                     <hr className='bg-light'/>
                     <div className='p-2'>
                         <input className='p-2 text-center rounded form-control' type="text" name="username" placeholder="username"/>
@@ -63,26 +71,14 @@ const Signup = () => {
                 </form>
             </div>
         }
-        {error &&
-            <>
+        {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
-                    <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
+                <h6 className="p-4 rounded text-danger">
+                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-3" style={{transform: "translateY(16%)", color: "#cd1414"}}></i>
                     {error}
-                </h5>
+                </h6>
             </div>
-            </>
         }
-        <div className='d-flex pb-4 justify-content-center'>
-            <div className='d-block text-light'>
-                <ul class="h6 text-warning">
-                    <li class="mt-4 mb-2">Your password must contain at least 8 characters.</li>
-                    <li class="mb-2">Your password must contain at least one number.</li>
-                    <li class="mb-2">Your password must contain at least one uppercase letter.</li>
-                    <li class="mb-4">Your password must contain only alphanumeric characters.</li>
-                </ul>
-            </div>
-        </div>
         </>
     );
 }

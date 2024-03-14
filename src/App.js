@@ -64,7 +64,7 @@ const App = () => {
       </div>
     ) : (
       <div className="App">
-        <h6>Not logged in!</h6>
+        <h6 className='text-light'>Not logged in!</h6>
         <hr />
       </div>
     )}

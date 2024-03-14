@@ -61,10 +61,10 @@ const SetNew = () => {
         </div>
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
+                <h6 className="p-4 text-danger rounded">
                     <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
                     {error}
-                </h5>
+                </h6>
             </div>
         }
         </>
