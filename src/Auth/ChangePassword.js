@@ -56,7 +56,7 @@ const ChangePassword = () => {
                 <div className='p-2'>
                     <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} name="new_password2" placeholder="new_password2"/>
                 </div>
-                <div className='d-flex p-2 pb-4 justify-content-center'>
+                <div className='d-flex p-2 pt-4 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Change"/>
                 </div>
             </fieldset>       

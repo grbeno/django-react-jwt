@@ -6,10 +6,7 @@ from app.views import React
 from accounts.views import (
     BlacklistTokenUpdateView,
     MyTokenObtainPairView,
-
-    #MyPasswordTokenView,
-    #SetNewPasswordView
-    MyResetPasswordTokenView
+    GetTokenExpiry
 )
 
 
@@ -22,7 +19,7 @@ urlpatterns = [
 
     # Password reset
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
-    # path('api/password_reset/confirm/', MyPasswordTokenView.as_view(), name='password_reset_confirm'),
+    path('api/token_expires/', GetTokenExpiry.as_view(), name='token_expires'),
     
     # User model
     path('accounts/', include('accounts.urls')),

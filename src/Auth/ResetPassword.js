@@ -39,7 +39,7 @@ const Reset = () => {
                 <div className='p-2'>
                     <input className='p-2 text-center rounded' type="text" name="email" placeholder="email"/>
                 </div>
-                <div className='d-flex p-2 pb-4 justify-content-center'>
+                <div className='d-flex p-2 pt-4 pb-4 justify-content-center'>
                     <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Send"/>
                 </div>
                 <div className='d-flex pb-4 justify-content-center'>

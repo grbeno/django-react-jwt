@@ -26,17 +26,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # ...
 
         return token
-    
-
-# django_rest_passwordreset serializers
-
-class CustomEmailSerializer(EmailSerializer):
-    email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])
-
-
-class CustomPasswordTokenSerializer(PasswordTokenSerializer):
-    password = serializers.CharField(required=True, label="Password", validators=[validate_password], style={'input_type': 'password'})
-    token = serializers.CharField()
 
 
 # User model serializers

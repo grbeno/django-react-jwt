@@ -64,7 +64,7 @@ const Signup = () => {
                     <div className='p-2 position-relative'>
                         <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
                     </div>
-                    <div className='d-flex p-2 justify-content-center'>
+                    <div className='d-flex p-2 pt-4 justify-content-center'>
                         <input className='p-2 px-3 bg-primary text-light border-0 rounded' type="submit" value="Signup"/>
                     </div>
                 </fieldset>

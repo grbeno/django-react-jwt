@@ -41,7 +41,7 @@ const Header = () => {
                     </div>
                 )}
                 </>
-                {superuser && process.env.REACT_APP_BASE_URL==='http://localhost:8000' && <a className="h5 m-4 text-light d-none d-md-block" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip fa-2x"></i></span></a>}
+                {superuser && process.env.REACT_APP_BASE_URL==='http://localhost:8000' && <a className="h5 m-4 text-light d-none d-md-block" href="http://localhost:8000/admin/"><span data-toggle="tooltip" title="django-admin"><i className="top-icon fa-solid fa-id-card-clip"></i></span></a>}
             </nav>
         </header>
     )

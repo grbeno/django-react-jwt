@@ -3,14 +3,20 @@ import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
+import axiosInstance from "../axios";
 
 
 const SetNew = () => {
 
     const {setnew} = useContext(AuthContext);
-    const [token, setToken] = useState(null);
+    const [url_token, setUrlToken] = useState(null);
+    const [token, setToken] = useState("");
+    const [isexpired, setIsExpired] = useState(false);
+    
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    
+    // show-hide password icon
     const [icon, setIcon] = useState(eyeOff);
     const [type, setType] = useState('password');
 
@@ -25,6 +31,7 @@ const SetNew = () => {
         }
     }
 
+    // set new password - auth context
     const handleSetNew = (e) => {
         e.preventDefault();
         setnew(e, (errorMessage) => {
@@ -34,14 +41,35 @@ const SetNew = () => {
         );
     };
 
+    // get token & token expiry from server
+    const tokenExpiry = () => {
+        axiosInstance.get('/api/token_expires/', {
+        })
+        .then((response) => {
+            setIsExpired(response.data.expiry);
+            setToken(response.data.token);
+            setUrlToken(window.location.href.split('/').pop());
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
     useEffect(() => {
-        const url = window.location.href;
-        const token = url.split('/').pop();
-        setToken(token);
-    }, []);
+        tokenExpiry();
+        console.log("is expired: " + isexpired);
+        console.log("token from server: " + token);
+        console.log("token from url: " + url_token);
+        console.log("tokens are equal: " + (token === url_token));
+    }, [isexpired, token, url_token]);
 
     return (
         <>
+        {isexpired || token !== url_token ?
+        <div className="container d-flex p-4 text-light justify-content-center">
+            <h6>Password reset token is not valid.</h6>
+        </div>
+        : 
         <div className="container d-flex p-4 justify-content-center">
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
@@ -59,6 +87,7 @@ const SetNew = () => {
             </fieldset>
             </form>  
         </div>
+        }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="p-4 text-danger rounded">

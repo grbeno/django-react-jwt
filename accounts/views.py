@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+from django.utils import timezone
 from django.http import JsonResponse
 
 from rest_framework import status
@@ -8,32 +11,20 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
-from django_rest_passwordreset.views import ResetPasswordConfirm, ResetPasswordRequestToken
-
+from django_rest_passwordreset.models import ResetPasswordToken
+import config.settings as settings
 from .models import CustomUser as User
+
 from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
-    MyTokenObtainPairSerializer, 
-    CustomPasswordTokenSerializer,
-    CustomEmailSerializer,
+    MyTokenObtainPairSerializer,
 )
 from .utils import get_error_message
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-# django_rest_passwordreset views
-
-class MyPasswordTokenView(ResetPasswordConfirm):
-    serializer_class = CustomPasswordTokenSerializer
-
-
-class MyResetPasswordTokenView(ResetPasswordRequestToken):
-    serializer_class = CustomEmailSerializer
-
 
 # .accounts views
         
@@ -118,3 +109,36 @@ class DeleteUser(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class GetTokenExpiry(APIView):
+    """ Check if the reset password token is expired or not """
+    def get(self, request, *args, **kwargs):
+
+        token = None
+
+        try:
+            reset_password_key = ResetPasswordToken.objects.latest('key')
+            token=reset_password_key.key
+            
+            # print(token)
+        
+        except ResetPasswordToken.DoesNotExist:
+            return Response({'error': 'Token does not exist'}, status=400)
+        
+        try:
+            reset_password_token = ResetPasswordToken.objects.get(key=token)
+            expiry_time = reset_password_token.created_at + timedelta(seconds=settings.DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME)
+            
+            print(f"\ncreated@: {reset_password_token.created_at}")
+            print(f"expire: {expiry_time}\n")
+            #print(not timezone.now() <= expiry_time)
+
+        except ResetPasswordToken.DoesNotExist:
+            return Response({'error': 'Token does not exist'}, status=400)
+
+        #print(token)
+        return JsonResponse({
+            'expiry': not timezone.now() <= expiry_time,  # True if expired, False if not expired
+            'token': token 
+        })
