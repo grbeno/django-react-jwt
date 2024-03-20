@@ -214,12 +214,20 @@ SIMPLE_JWT = {
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST =  'mail.privateemail.com' #'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env.str('EMAIL_USER')
-EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD')
+#if DEBUG:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = '127.0.0.1'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+""" else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST =  'mail.privateemail.com' #'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = env.str('EMAIL_USER')
+    EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD') """
 
 # DRF Password Reset
 

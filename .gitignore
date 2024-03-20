@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# django-react-jwt project
+requirements-dev.txt
+
 # Distribution / packaging
 .Python
 build/
