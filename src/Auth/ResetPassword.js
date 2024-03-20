@@ -8,8 +8,10 @@ const Reset = () => {
     const {reset} = useContext(AuthContext);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleReset = (e) => {
+        setIsLoading(true); // spinner on
         e.preventDefault();
         reset(e,
             (errorMessage) => { setError(errorMessage); }, 
@@ -17,12 +19,18 @@ const Reset = () => {
         });
     };
 
+    // useEffect for error and success messages temporary display
     useEffect(() => {
         const timer = setTimeout(() => {
             setError("");
             setSuccess("");
         }, 3000);
         return () => clearTimeout(timer);
+    }, [error, success]);
+
+    // useEffect for spinner
+    useEffect(() => {
+        setIsLoading(false);  // spinner off when goes to the bottom of the response list
     }, [error, success]);
 
     return (
@@ -51,6 +59,7 @@ const Reset = () => {
             </fieldset>
             </form>  
         </div>
+        {isLoading ? <div className='d-flex justify-content-center'><div className='spinner'></div></div> : '' }
         {success && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="p-4 text-light rounded">
@@ -61,8 +70,8 @@ const Reset = () => {
         }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h6 className="p-4 text-danger rounded">
-                    <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
+                <h6 className="error-message">
+                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

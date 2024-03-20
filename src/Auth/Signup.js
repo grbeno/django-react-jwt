@@ -73,8 +73,8 @@ const Signup = () => {
         }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h6 className="p-4 rounded text-danger">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-3" style={{transform: "translateY(16%)", color: "#cd1414"}}></i>
+                <h6 className="error-message">
+                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

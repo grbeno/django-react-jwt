@@ -64,8 +64,8 @@ const ChangePassword = () => {
         </div>
         {error && 
             <div className="d-flex mt-3 justify-content-center">
-                <h6 className="p-4 text-danger rounded">
-                    <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
+                <h6 className="error-message">
+                <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>
