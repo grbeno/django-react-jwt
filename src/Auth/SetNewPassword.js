@@ -8,7 +8,7 @@ import axiosInstance from "../axios";
 
 const SetNew = () => {
 
-    const {setnew} = useContext(AuthContext);
+    const {setNew, validateToken} = useContext(AuthContext);
     const [url_token, setUrlToken] = useState(null);
     const [token, setToken] = useState("");
     const [isexpired, setIsExpired] = useState(false);
@@ -34,12 +34,25 @@ const SetNew = () => {
     // set new password - auth context
     const handleSetNew = (e) => {
         e.preventDefault();
-        setnew(e, (errorMessage) => {
+        setNew(e, (errorMessage) => {
             setError(errorMessage);
         },
         token,
         );
     };
+
+    /* const handleValidateToken = () => {
+        validateToken((errorMessage) => {
+            setError(errorMessage);
+        },
+        token,
+        );
+    } */
+    
+    /* useEffect(() => {
+        setToken(window.location.href.split('/').pop());
+        handleValidateToken();
+    }, [token]); */
 
     // get token & token expiry from server
     const tokenExpiry = () => {
@@ -57,6 +70,7 @@ const SetNew = () => {
 
     useEffect(() => {
         tokenExpiry();
+        //handleValidateToken();
         console.log("is expired: " + isexpired);
         console.log("token from server: " + token);
         console.log("token from url: " + url_token);
@@ -65,11 +79,11 @@ const SetNew = () => {
 
     return (
         <>
-        {isexpired || token !== url_token ?
+        {/* {isexpired ?  // || token !== url_token
         <div className="container d-flex p-4 text-light justify-content-center">
             <h6>Password reset token is not valid.</h6>
         </div>
-        : 
+         :  */}
         <div className="container d-flex p-4 justify-content-center">
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
@@ -87,7 +101,7 @@ const SetNew = () => {
             </fieldset>
             </form>  
         </div>
-        }
+        {/* }  */}
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

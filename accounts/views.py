@@ -123,15 +123,16 @@ class GetTokenExpiry(APIView):
             return Response({'error': 'Token does not exist'}, status=400)
         else:
             reset_password_token = ResetPasswordToken.objects.get(key=token)
-            expiry_time = reset_password_token.created_at + timedelta(seconds=settings.DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME)
+            expiry_time = reset_password_token.created_at + timedelta(hours=settings.DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME)
             # test: time_string = "2023-03-19 18:54:57.894669+00:00, expiry_time = datetime.strptime(time_string, "%Y-%m-%d %H:%M:%S.%f%z")
             expired = not timezone.now() <= expiry_time  # True if expired, False if not expired
-            if expired:
-                reset_password_token.delete()
+            # if expired:
+            #     reset_password_token.delete()
             
             #print(f"\ncreated@: {reset_password_token.created_at}")
-            #print(f"expire: {expiry_time}\n")
+            print(f"expire: {expiry_time}\n")
             #print(not timezone.now() <= expiry_time)
+            print(token)
 
         return JsonResponse({
             'expiry': expired,

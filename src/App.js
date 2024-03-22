@@ -8,7 +8,7 @@ import axiosInstance from './axios';
 
 const App = () => {
 
-  const {deleteuser} = useContext(AuthContext);
+  const {deleteUser} = useContext(AuthContext);
   
   // token
   const token = localStorage.getItem('access_token');
@@ -28,7 +28,7 @@ const App = () => {
     }
     
     try {
-        await deleteuser((errorMessage) => {
+        await deleteUser((errorMessage) => {
             setError(errorMessage);
         }, user.user_id);
         localStorage.removeItem('access_token');

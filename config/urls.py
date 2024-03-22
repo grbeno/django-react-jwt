@@ -19,6 +19,7 @@ urlpatterns = [
 
     # Password reset
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/password_reset/validate_token/', include('django_rest_passwordreset.urls', namespace='password_reset_validate')),
     path('api/token_expires/', GetTokenExpiry.as_view(), name='token_expires'),
     
     # User model

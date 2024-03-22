@@ -100,23 +100,47 @@ export const AuthProvider = ({children}) => {
     };
     
     // set new password
-    const setnew = (e, errorCallback, token) => {
+    const setNew = (e, errorCallback, token) => {
         e.preventDefault();
-        axiosInstance.post(`/api/password_reset/confirm/`, { 
+        
+        axiosInstance.post('/api/password_reset/validate_token/', {
+            token: token,
+        })
+            .then((response) => {
+                console.log(response);
+                //window.location.href = '/success/';
+            })
+            .catch((error) => {
+                handleErrorMessages(error, errorCallback);
+            });
+        
+        axiosInstance.post('/api/password_reset/confirm/', { 
             password: e.target.password.value,
-            token,
+            token: token,
+        })
+            .then((response) => {
+                console.log(response);
+                window.location.href = '/success/';
+            })
+            .catch((error) => {
+                handleErrorMessages(error, errorCallback);
+            });
+    };
+
+    /* const validateToken = (errorCallback, token) => {
+        axiosInstance.post('/api/password_reset/validate_token/', {
+            token: token,
         })
         .then((response) => {
             console.log(response);
-            window.location.href = '/success/';
         })
         .catch((error) => {
             handleErrorMessages(error, errorCallback);
         });
-    };
+    }; */
 
     // delete user
-    const deleteuser = (errorCallback, id) => {
+    const deleteUser = (errorCallback, id) => {
         axiosInstance.delete(`/accounts/delete_user/${id}`, {
             id,
         })
@@ -129,7 +153,7 @@ export const AuthProvider = ({children}) => {
         });
     };
 
-    const contextData = {signup, login, logout, change, reset, setnew, deleteuser};
+    const contextData = {signup, login, logout, change, reset, setNew, deleteUser};
       
     return (
         <>
