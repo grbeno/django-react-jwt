@@ -8,10 +8,11 @@ import axiosInstance from "../axios";
 
 const SetNew = () => {
 
-    const {setNew, validateToken} = useContext(AuthContext);
-    const [url_token, setUrlToken] = useState(null);
+    const {setNew, getEmail} = useContext(AuthContext);
+    // const [url_token, setUrlToken] = useState(null);
     const [token, setToken] = useState("");
-    const [isexpired, setIsExpired] = useState(false);
+    //const [email, setEmail] = useState("");
+    // const [isexpired, setIsExpired] = useState(false);
     
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -40,42 +41,11 @@ const SetNew = () => {
         token,
         );
     };
-
-    /* const handleValidateToken = () => {
-        validateToken((errorMessage) => {
-            setError(errorMessage);
-        },
-        token,
-        );
-    } */
     
-    /* useEffect(() => {
-        setToken(window.location.href.split('/').pop());
-        handleValidateToken();
-    }, [token]); */
-
-    // get token & token expiry from server
-    const tokenExpiry = () => {
-        axiosInstance.get('/api/token_expires/', {
-        })
-        .then((response) => {
-            setIsExpired(response.data.expiry);
-            setToken(response.data.token);
-            setUrlToken(window.location.href.split('/').pop());
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    };
-
     useEffect(() => {
-        tokenExpiry();
-        //handleValidateToken();
-        console.log("is expired: " + isexpired);
-        console.log("token from server: " + token);
-        console.log("token from url: " + url_token);
-        console.log("tokens are equal: " + (token === url_token));
-    }, [isexpired, token, url_token]);
+        //setEmail(getEmail());
+        setToken(window.location.href.split('/').pop());
+    }, [token]);
 
     return (
         <>

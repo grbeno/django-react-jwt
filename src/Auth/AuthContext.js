@@ -99,43 +99,45 @@ export const AuthProvider = ({children}) => {
         });
     };
     
-    // set new password
+   // set new password
     const setNew = (e, errorCallback, token) => {
         e.preventDefault();
         
         axiosInstance.post('/api/password_reset/validate_token/', {
             token: token,
         })
-            .then((response) => {
-                console.log(response);
-                //window.location.href = '/success/';
-            })
-            .catch((error) => {
-                handleErrorMessages(error, errorCallback);
-            });
-        
-        axiosInstance.post('/api/password_reset/confirm/', { 
-            password: e.target.password.value,
-            token: token,
-        })
-            .then((response) => {
-                console.log(response);
-                window.location.href = '/success/';
-            })
-            .catch((error) => {
-                handleErrorMessages(error, errorCallback);
-            });
-    };
+        .then((response) => {
+            console.log(response);
 
-    /* const validateToken = (errorCallback, token) => {
-        axiosInstance.post('/api/password_reset/validate_token/', {
-            token: token,
+            // Only send the second request if the first one is successful
+            return axiosInstance.post('/api/password_reset/confirm/', { 
+                password: e.target.password.value,
+                token: token,
+            });
         })
         .then((response) => {
             console.log(response);
+            window.location.href = '/success/';
         })
         .catch((error) => {
-            handleErrorMessages(error, errorCallback);
+            console.log(error);
+            if (error.response && error.response.data.detail){
+                errorCallback('Invalid or expired token!');
+            }
+            else {
+                handleErrorMessages(error, errorCallback);
+            }
+        });
+    };
+
+    /* const getEmail = () => {
+        axiosInstance.get(`/api/password_reset/token_email/`, {
+        })
+        .then((response) => {
+            console.log(response.data.email);
+        })
+        .catch((error) => {
+            console.log(error);
         });
     }; */
 

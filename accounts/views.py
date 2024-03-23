@@ -1,7 +1,3 @@
-from datetime import timedelta
-from datetime import datetime
-
-from django.utils import timezone
 from django.http import JsonResponse
 
 from rest_framework import status
@@ -12,14 +8,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 
-from django_rest_passwordreset.models import ResetPasswordToken
-import config.settings as settings
 from .models import CustomUser as User
 
 from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
     MyTokenObtainPairSerializer,
+    #CustomEmailSerializer
 )
 from .utils import get_error_message
 
@@ -111,30 +106,13 @@ class DeleteUser(APIView):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    
+# class GetEmail(APIView):
 
-class GetTokenExpiry(APIView):
-    """ Check if the reset password token is expired or not """
-    def get(self, request, *args, **kwargs):
-
-        try:
-            reset_password_key = ResetPasswordToken.objects.latest('key')
-            token = reset_password_key.key
-        except ResetPasswordToken.DoesNotExist:
-            return Response({'error': 'Token does not exist'}, status=400)
-        else:
-            reset_password_token = ResetPasswordToken.objects.get(key=token)
-            expiry_time = reset_password_token.created_at + timedelta(hours=settings.DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME)
-            # test: time_string = "2023-03-19 18:54:57.894669+00:00, expiry_time = datetime.strptime(time_string, "%Y-%m-%d %H:%M:%S.%f%z")
-            expired = not timezone.now() <= expiry_time  # True if expired, False if not expired
-            # if expired:
-            #     reset_password_token.delete()
-            
-            #print(f"\ncreated@: {reset_password_token.created_at}")
-            print(f"expire: {expiry_time}\n")
-            #print(not timezone.now() <= expiry_time)
-            print(token)
-
-        return JsonResponse({
-            'expiry': expired,
-            'token': token 
-        })
+#     serializer_class = CustomEmailSerializer
+    
+#     def get(self, request, *args, **kwargs):
+#         serializer = CustomEmailSerializer(data=request.data)
+#         email = serializer.validated_data['email']
+#         print(email)
+#         return JsonResponse({'email': email})

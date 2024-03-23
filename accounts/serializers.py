@@ -7,6 +7,10 @@ from django_rest_passwordreset.serializers import PasswordTokenSerializer, Email
 from accounts.models import CustomUser as User
 
 
+# class CustomEmailSerializer(EmailSerializer):
+#     pass
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
