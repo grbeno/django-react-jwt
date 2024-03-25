@@ -214,21 +214,13 @@ SIMPLE_JWT = {
 
 # Email
 
-#if DEBUG:
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = '127.0.0.1'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 1025
-EMAIL_USE_TLS = False
-""" else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST =  'mail.privateemail.com' #'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = env.str('EMAIL_USER')
-    EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD') """
+EMAIL_BACKEND = env.str('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = env.str('EMAIL_HOST', default='mail.privateemail.com')
+EMAIL_HOST_USER = env.str('EMAIL_USER', default='')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD', default='')
+EMAIL_PORT = env.int('EMAIL_PORT', default=587)
+EMAIL_USE_TLS = True
 
 # DRF Password Reset
 
-DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 0.08  # hour
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 0.8  # hour
