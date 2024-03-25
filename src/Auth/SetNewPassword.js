@@ -3,12 +3,11 @@ import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
-import axiosInstance from "../axios";
 
 
 const SetNew = () => {
 
-    const {setNew, getEmail} = useContext(AuthContext);
+    const {setNew} = useContext(AuthContext);
     // const [url_token, setUrlToken] = useState(null);
     const [token, setToken] = useState("");
     //const [email, setEmail] = useState("");
