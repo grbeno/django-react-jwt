@@ -5,6 +5,8 @@ from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
+from config.settings import DEBUG
+
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
@@ -34,14 +36,17 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_html_message = render_to_string('email/user_reset_password.html', context)
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
 
+    sent_from = "szaktan-dev@szaktanweb.com"
+    if DEBUG:
+        sent_from = "smtp://127.0.0.1:1025" 
+    
     msg = EmailMultiAlternatives(
         # title:
         "Password Reset for {title}".format(title="Some website title"),
         # message:
         email_plaintext_message,
         # from:
-        "smtp://127.0.0.1:1025",
-        #"szaktan-dev@szaktanweb.com",
+        sent_from,
         # to:
         [reset_password_token.user.email]
     )
