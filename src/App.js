@@ -4,13 +4,12 @@ import './App.css';
 import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const App = () => {
 
   const {deleteUser} = useContext(AuthContext);
-
-  const navigate = useNavigate();
   
   // token
   const token = localStorage.getItem('access_token');
@@ -45,10 +44,7 @@ const App = () => {
   useEffect(() => {
     console.log(expirationTimeRefAccess);
     console.log(expirationTimeRefRefresh);
-    if (!token) {
-      navigate('/login');
-    }
-  } , [expirationTimeRefAccess, expirationTimeRefRefresh, token]);
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
 
   return (
     <>
@@ -68,9 +64,16 @@ const App = () => {
         <hr />
       </div>
     ) : (
-      <div className="App">
-        {/*<h6 className='text-light'>Not logged in!</h6>*/}
-      </div>
+      <>
+      {!token && window.location.pathname === '/' &&
+        <>
+        <div className="App"></div>
+        <div className="d-flex justify-content-center">
+          <p className="h6 text-light">You are not logged in. Please <Link to="/login">login</Link> or <Link to="/signup">signup</Link>.</p>
+        </div>
+        </>
+      }
+      </>
     )}
     {error && 
       <div className="d-flex mt-3 justify-content-center">
