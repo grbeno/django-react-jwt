@@ -4,7 +4,8 @@ import './App.css';
 import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import withAuth from './LoginRequired';
 
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
 
   return (
     <>
-    {token && window.location.pathname === '/' ? (
+    {token && window.location.pathname === '/' &&
       <div className="App">
         <div className="d-flex justify-content-center">
           <div className="border border-light w-25 p-4 bg-dark">
@@ -63,7 +64,8 @@ const App = () => {
         </div>
         <hr />
       </div>
-    ) : (
+    }
+    {/* ) : (
       <>
       {!token && window.location.pathname === '/' &&
         <>
@@ -74,7 +76,7 @@ const App = () => {
         </>
       }
       </>
-    )}
+    )} */}
     {error && 
       <div className="d-flex mt-3 justify-content-center">
         <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
@@ -87,4 +89,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default withAuth(App);

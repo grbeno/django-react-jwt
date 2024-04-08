@@ -14,7 +14,6 @@ from .serializers import (
     SignupSerializer, 
     ChangePasswordSerializer, 
     MyTokenObtainPairSerializer,
-    #CustomEmailSerializer
 )
 from .utils import get_error_message
 
@@ -105,14 +104,3 @@ class DeleteUser(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-    
-# class GetEmail(APIView):
-
-#     serializer_class = CustomEmailSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         serializer = CustomEmailSerializer(data=request.data)
-#         email = serializer.validated_data['email']
-#         print(email)
-#         return JsonResponse({'email': email})

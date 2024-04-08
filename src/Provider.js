@@ -25,7 +25,7 @@ const Provider = () => {
                         <Route path="/reset" element={<ResetPassword />}/>
                         <Route path="/success" element={<ResetSuccess />}/>
                     </Routes>
-                <App />
+                    <App />
             </AuthProvider>
         </Router>
         </>
