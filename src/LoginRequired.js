@@ -7,10 +7,10 @@ function withAuth(WrappedComponent) {
     let token = localStorage.getItem('access_token');
 
     useEffect(() => {
-    if (!token && window.location.pathname !== '/signup' && window.location.pathname !== '/reset') { 
-        navigate('/login');
-    }
-    }, []);
+      if (!token && window.location.pathname !== '/signup' && window.location.pathname !== '/reset') { 
+          navigate('/login');
+      }
+    }, [token, navigate]);
 
     return <WrappedComponent {...props} />;
   }
