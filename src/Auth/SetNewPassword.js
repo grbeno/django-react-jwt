@@ -8,11 +8,7 @@ import {eye} from 'react-icons-kit/feather/eye'
 const SetNew = () => {
 
     const {setNew} = useContext(AuthContext);
-    // const [url_token, setUrlToken] = useState(null);
     const [token, setToken] = useState("");
-    //const [email, setEmail] = useState("");
-    // const [isexpired, setIsExpired] = useState(false);
-    
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     
@@ -42,17 +38,11 @@ const SetNew = () => {
     };
     
     useEffect(() => {
-        //setEmail(getEmail());
         setToken(window.location.href.split('/').pop());
     }, [token]);
 
     return (
         <>
-        {/* {isexpired ?  // || token !== url_token
-        <div className="container d-flex p-4 text-light justify-content-center">
-            <h6>Password reset token is not valid.</h6>
-        </div>
-         :  */}
         <div className="container d-flex p-4 justify-content-center">
             <form className='auth-form' onSubmit={handleSetNew}>
             <fieldset>
@@ -70,7 +60,6 @@ const SetNew = () => {
             </fieldset>
             </form>  
         </div>
-        {/* }  */}
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

@@ -5,6 +5,7 @@ import {expirationTime} from './utils';
 import AuthContext from './Auth/AuthContext';
 import axiosInstance from './axios';
 import withAuth from './LoginRequired';
+import { useNavigate } from 'react-router-dom';
 
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
   const expirationTimeRefRefresh = useRef(expirationTime('refresh_token'));
 
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleDeleteUser = async (e) => {
     e.preventDefault();
@@ -44,7 +47,10 @@ const App = () => {
   useEffect(() => {
     console.log(expirationTimeRefAccess);
     console.log(expirationTimeRefRefresh);
-  } , [expirationTimeRefAccess, expirationTimeRefRefresh]);
+    if (!token && window.location.pathname === '/') {
+      navigate('/login');
+    }
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh, token]);
 
   return (
     <>

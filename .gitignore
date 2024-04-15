@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # django-react-jwt project
-requirements-dev.txt
+dev.txt
 
 # Distribution / packaging
 .Python

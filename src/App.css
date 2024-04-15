@@ -20,8 +20,9 @@ body {
 /* Auth forms */
 
 .auth-form {
+  width: 40%;
   padding: 8%;
-  border: 1px solid white;
+  border: 1px solid rgb(158, 148, 148);
 }
 
 .auth-form fieldset legend {
@@ -60,4 +61,41 @@ body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Media queries - screen width */
+
+/* xl >=1200px */
+@media screen and (max-width: 1200px) {
+  .auth-form {
+    width: 50%;
+  }
+}
+
+/* lg >=992px */
+@media screen and (max-width: 992px) {
+  .auth-form {
+    width: 60%;
+  }
+}
+
+/* md >=768px */
+@media screen and (max-width: 768px) {
+  .auth-form {
+    width: 70%;
+  }
+}
+
+/* sm >=576px */
+@media screen and (max-width: 576px) {
+  .auth-form {
+    width: 80%;
+  }
+}
+
+/* xs <576px */
+@media screen and (max-width: 576px) {
+  .auth-form {
+    width: 90%;
+  }
 }
