@@ -50,7 +50,7 @@ const App = () => {
     if (!token && window.location.pathname === '/') {
       navigate('/login');
     }
-  } , [expirationTimeRefAccess, expirationTimeRefRefresh, token]);
+  } , [expirationTimeRefAccess, expirationTimeRefRefresh, navigate, token]);
 
   return (
     <>
