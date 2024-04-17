@@ -3,6 +3,7 @@ import AuthContext from "./AuthContext"
 import {Icon} from 'react-icons-kit'
 import {mail} from 'react-icons-kit/feather/mail'
 
+
 const Reset = () => {
 
     const {reset} = useContext(AuthContext);
@@ -71,7 +72,7 @@ const Reset = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                    <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

@@ -8,6 +8,7 @@ __pycache__/
 
 # django-react-jwt project
 dev.txt
+run_django_react_jwt.bat
 
 # Distribution / packaging
 .Python

@@ -1,10 +1,11 @@
 import React, {useContext, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
+import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
-import {unlock} from 'react-icons-kit/feather/unlock'
-import {info} from 'react-icons-kit/feather/info'
+import {unlock} from 'react-icons-kit/feather/unlock';
+import {info} from 'react-icons-kit/feather/info';
+
 
 const Signup = () => {
 
@@ -42,7 +43,7 @@ const Signup = () => {
                 <form className="auth-form" onSubmit={handleSignup}>
                 <fieldset>
                     <legend>Sign up 
-                        <span className='text-light mx-2'>
+                        <span className='mx-2 text-light'>
                             <Icon style={{transform: "translateY(-5%)"}} icon={unlock} size={20}/>
                         </span>
                         <span className='text-warning' data-toggle="tooltip" title="Your password must contain at least 8 characters, at least one number, at least one uppercase letter and only alphanumeric characters.">
@@ -51,19 +52,19 @@ const Signup = () => {
                     </legend>
                     <hr className='bg-light'/>
                     <div className='p-2'>
-                        <input className='p-2 text-center rounded form-control' type="text" name="username" placeholder="username"/>
+                        <input className='form-control p-2 text-center rounded' type="text" name="username" placeholder="username"/>
                     </div>
                     <div className='p-2'>
-                        <input className='p-2 text-center rounded form-control' type="text" name="email" placeholder="email"/>
+                        <input className='form-control p-2 text-center rounded' type="text" name="email" placeholder="email"/>
                     </div>
                     <div className='p-2 position-relative'>
-                        <input className='p-2 text-center rounded form-control' type={passwordType.password1} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                        <input className='form-control p-2 text-center rounded' type={passwordType.password1} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
                         <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password1')}>
                             <Icon icon={passwordType.password1 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
                     </div>
                     <div className='p-2 position-relative'>
-                        <input className='p-2 text-center rounded form-control' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
+                        <input className='form-control p-2 text-center rounded' type={passwordType.password2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password again"/>
                         <span className="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={() => handleShowPassword('password2')}>
                             <Icon icon={passwordType.password2 === 'password' ? eyeOff : eye} size={13}/>
                         </span>
@@ -78,7 +79,7 @@ const Signup = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                    <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>

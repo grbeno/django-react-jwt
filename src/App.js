@@ -98,7 +98,7 @@ const App = () => {
     }
     {error && 
       <div className="d-flex mt-3 justify-content-center">
-        <h5 className="p-4 text-danger rounded" style={{backgroundColor: '#f4c0c0'}}>
+        <h5 className="p-4 rounded text-danger" style={{backgroundColor: '#f4c0c0'}}>
             <i className="sign-icon fa-solid fa-triangle-exclamation mx-3"></i>
             {error}
         </h5>

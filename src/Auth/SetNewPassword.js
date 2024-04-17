@@ -1,8 +1,8 @@
 import React, {useContext, useState, useEffect} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
+import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 
 
 const SetNew = () => {
@@ -49,7 +49,7 @@ const SetNew = () => {
                 <legend>Set new Password</legend>
                 <hr className='bg-light'/>
                 <div className='p-2 position-relative'>
-                    <input className='p-2 text-center rounded form-control' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
+                    <input className='form-control p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password} name="password" placeholder="password"/>
                         <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
                             <Icon icon={icon} size={13}/>
                         </span>
@@ -63,7 +63,7 @@ const SetNew = () => {
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
-                    <i className="h5 sign-icon fa-solid fa-triangle-exclamation mx-2" style={{transform: "translateY(16%)"}}></i>
+                    <i className="sign-icon fa-solid fa-triangle-exclamation h5 mx-2" style={{transform: "translateY(16%)"}}></i>
                     {error}
                 </h6>
             </div>
