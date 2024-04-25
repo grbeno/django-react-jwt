@@ -127,7 +127,6 @@ export const AuthProvider = ({children}) => {
         })
         .then((response) => {
             console.log(response);
-            //window.location.href = '/success';
             navigate('/success', { replace: true });
         })
         .catch((error) => {

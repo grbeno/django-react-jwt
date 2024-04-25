@@ -1,7 +1,7 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react';
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
-import {eye} from 'react-icons-kit/feather/eye'
+import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 
 
@@ -27,20 +27,31 @@ const SetNew = () => {
         });
     }; */
 
-     // show-hide password icon
-     const [icon, setIcon] = useState(eyeOff);
-     const [type, setType] = useState('password');
+    // show-hide password icon
+    const [icon1, setIcon1] = useState(eyeOff);
+    const [icon2, setIcon2] = useState(eyeOff);
+    const [type1, setType1] = useState('password');
+    const [type2, setType2] = useState('password');
  
-     // show-hide password
-     const handleShowPassword = () => {
-         if (type === 'password') {
-             setType('text');
-             setIcon(eye);
-         } else {
-             setType('password');
-             setIcon(eyeOff);
-         }
-     }
+    const handleShowPassword1 = () => {
+        if (type1 === 'password') {
+            setType1('text');
+            setIcon1(eye);
+        } else {
+            setType1('password');
+            setIcon1(eyeOff);
+        }
+    }
+        
+    const handleShowPassword2 = () => {   
+        if (type2 === 'password') {
+            setType2('text');
+            setIcon2(eye);
+        } else {
+            setType2('password');
+            setIcon2(eyeOff);
+        }
+    }
    
     // set new password - auth context
     const handleSetNew = (e) => {
@@ -69,22 +80,22 @@ const SetNew = () => {
                 <hr className='bg-light'/>
                 
                 <div className='p-2 position-relative'>
-                    <input className='form-control p-2 text-center rounded' type={type} onChange={(e) => setPassword(e.target.value)} value={password1} name="password1" placeholder="password1"/>
+                    <input className='form-control p-2 text-center rounded' type={type1} onChange={(e) => setPassword(e.target.value)} value={password1} name="password1" placeholder="password1"/>
                     {/* <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword('password_1')}>
                         <Icon icon={passwordType.password_1 === 'password' ? eyeOff : eye} size={15}/>
                     </span> */}
-                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
-                        <Icon icon={icon} size={13}/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword1}>
+                        <Icon icon={icon1} size={13}/>
                     </span>
                 </div>
                 
                 <div className='p-2 position-relative'>
-                    <input className='form-control p-2 text-center rounded' type={type} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password2"/>
+                    <input className='form-control p-2 text-center rounded' type={type2} onChange={(e) => setPassword2(e.target.value)} value={password2} name="password2" placeholder="password2"/>
                     {/* <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword('passwordConfirm')}>
                         <Icon icon={passwordType.passwordConfirm === 'password' ? eyeOff : eye} size={15}/>
                     </span> */}
-                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword}>
-                        <Icon icon={icon} size={13}/>
+                    <span class="eye-icon position-absolute top-50 end-0 translate-middle-y pe-2" onClick={handleShowPassword2}>
+                        <Icon icon={icon2} size={13}/>
                     </span>
                 </div>
             

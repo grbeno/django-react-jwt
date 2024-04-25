@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react'
-import AuthContext from "./AuthContext"
-import {Icon} from 'react-icons-kit'
-import {mail} from 'react-icons-kit/feather/mail'
+import React, {useContext, useEffect, useState} from 'react';
+import AuthContext from "./AuthContext";
+import {Icon} from 'react-icons-kit';
+import {mail} from 'react-icons-kit/feather/mail';
 
 
 const Reset = () => {

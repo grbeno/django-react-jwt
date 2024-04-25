@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react'
 import AuthContext from "./AuthContext";
 import {Icon} from 'react-icons-kit';
-import {eye} from 'react-icons-kit/feather/eye'
+import {eye} from 'react-icons-kit/feather/eye';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {unlock} from 'react-icons-kit/feather/unlock'
+import {unlock} from 'react-icons-kit/feather/unlock';
 
 
 const Login = () => {
