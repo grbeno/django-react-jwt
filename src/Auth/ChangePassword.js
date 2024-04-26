@@ -13,11 +13,14 @@ const ChangePassword = () => {
     const [old_password, setOldPassword] = useState('');
     const [new_password1, setNewPassword] = useState('');
     const [new_password2, setNewPassword2] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         change(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         });
     };
 
@@ -71,6 +74,7 @@ const ChangePassword = () => {
             </fieldset>       
             </form>
         </div>
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

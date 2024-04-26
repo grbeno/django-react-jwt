@@ -14,6 +14,7 @@ const Signup = () => {
     const [error, setError] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     // show-hide password icon
     const [passwordType, setPasswordType] = useState({
@@ -31,8 +32,10 @@ const Signup = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         signup(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         });
     };
 
@@ -76,6 +79,7 @@ const Signup = () => {
                 </form>
             </div>
         }
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">

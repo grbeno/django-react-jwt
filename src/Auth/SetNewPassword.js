@@ -32,6 +32,7 @@ const SetNew = () => {
     const [icon2, setIcon2] = useState(eyeOff);
     const [type1, setType1] = useState('password');
     const [type2, setType2] = useState('password');
+    const [isLoading, setIsLoading] = useState(false);
  
     const handleShowPassword1 = () => {
         if (type1 === 'password') {
@@ -56,12 +57,15 @@ const SetNew = () => {
     // set new password - auth context
     const handleSetNew = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         if (e.target.password1.value !== e.target.password2.value) {
             setError("Passwords do not match");
+            setIsLoading(false);
             return;
         }
         setNew(e, (errorMessage) => {
             setError(errorMessage);
+            setIsLoading(false);
         },
         token,
         );
@@ -105,6 +109,7 @@ const SetNew = () => {
             </fieldset>
             </form>  
         </div>
+        {isLoading ? <div className='d-flex mt-4 justify-content-center'><div className='spinner'></div></div> : '' }
         {error && 
             <div className="d-flex mt-3 justify-content-center">
                 <h6 className="error-message">
